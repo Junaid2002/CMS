@@ -1,10 +1,5 @@
-
-import React, { useState } from 'react';
-
 import React, { useState, useEffect } from 'react';
-
-
-const App = () => {
+const Doctor = () => {
   const [doctors, setDoctors] = useState([]);
   const [currentDoctor, setCurrentDoctor] = useState({
     doctorID: '',
@@ -148,4 +143,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Doctor;
