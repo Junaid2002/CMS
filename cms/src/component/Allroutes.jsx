@@ -1,11 +1,12 @@
 import React from 'react'
 import Patient from './pateint'
+import Home from './Home'
 import { Route,Routes } from 'react-router-dom'
 
 const Allroutes = () => {
   return (
     <Routes>
-        {/* <Route path="/" element={<Home/>}></Route> */}
+        <Route path="/" element={<Home/>}></Route>
         <Route path="/patient" element={<Patient />}></Route>
     </Routes>
   )

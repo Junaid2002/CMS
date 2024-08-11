@@ -1,0 +1,15 @@
+.full-screen-background {
+    background-image: url('./assets/image/homePage.gif');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  h1 {
+    z-index: 1; /* Ensures the text appears above the background */
+  }
