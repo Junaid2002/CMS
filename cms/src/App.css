@@ -1,110 +1,114 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
+/* App.css */
+
 .App {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  font-family: Arial, sans-serif;
 }
 
-h1, h2 {
+h1 {
   color: #333;
-  text-align: center;
+  margin-bottom: 20px;
 }
+
 form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
 }
 
 input, select, textarea, button {
-  width: calc(50% - 20px);
+  width: 100%;
+  max-width: 400px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-input[type="date"], select {
-  width: 100%;
+  font-size: 16px;
 }
 
 textarea {
-  width: 100%;
-  resize: vertical;
-  height: 80px;
+  height: 100px;
 }
 
-button[type="submit"] {
+button {
   width: 100%;
+  max-width: 200px;
   background-color: #007bff;
   color: white;
-  border: none;
   cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
   font-size: 16px;
-  padding: 12px;
-  border-radius: 4px;
+  margin-top: 10px;
 }
 
-button[type="submit"]:hover {
+button:hover {
   background-color: #0056b3;
 }
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
+  width: 100%;
+  max-width: 600px;
 }
 
 li {
-  background-color: #f9f9f9;
-  margin-bottom: 10px;
-  padding: 15px;
+  background-color: white;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 li strong {
   font-size: 18px;
-  color: #333;
 }
 
 li em {
+  font-style: normal;
   color: #666;
+  margin-top: 5px;
+  display: block;
 }
 
 li button {
-  margin: 10px 5px 0 0;
-  padding: 8px 12px;
+  background-color: #28a745;
+  color: white;
   border: none;
+  padding: 8px 15px;
+  margin-right: 10px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
   font-size: 14px;
 }
 
-li button:first-of-type {
-  background-color: #28a745;
-  color: white;
-}
-
-li button:first-of-type:hover {
+li button:hover {
   background-color: #218838;
 }
 
 li button:last-of-type {
   background-color: #dc3545;
-  color: white;
 }
 
 li button:last-of-type:hover {
   background-color: #c82333;
-}
-p {
-  text-align: center;
-  color: #666;
-  font-size: 16px;
 }
