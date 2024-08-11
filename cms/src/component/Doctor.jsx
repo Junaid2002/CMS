@@ -1,4 +1,8 @@
+
+import React, { useState } from 'react';
+
 import React, { useState, useEffect } from 'react';
+
 
 const App = () => {
   const [doctors, setDoctors] = useState([]);
@@ -19,7 +23,7 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentDoctor.doctorID) {
-     
+
       setDoctors((prev) =>
         prev.map((doc) =>
           doc.doctorID === currentDoctor.doctorID ? currentDoctor : doc

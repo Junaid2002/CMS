@@ -7,10 +7,9 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handlePatient = () => {
-    console.log("Navigating to Patient page");
+    console.log("run");
     navigate("/patient");
   };
-
   const handleDoctor = () => {
     console.log("Navigating to Doctor page");
     navigate("/doctor");
@@ -30,3 +29,4 @@ const Home = () => {
 };
 
 export default Home;
+
