@@ -2,7 +2,7 @@ import React from 'react'
 import Patient from './pateint'
 import Doctor from './Doctor'
 import { Route,Routes } from 'react-router-dom'
-
+import Home from './Home'
 const Allroutes = () => {
   return (
     <Routes>
