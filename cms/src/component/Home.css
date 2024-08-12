@@ -1,15 +1,73 @@
-.full-screen-background {
-    background-image: url('./assets/image/homePage.gif');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-  }
-  
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  text-align: center;
+  color: #2d3748;
+  margin-top: 40px;
+  font-size: 3em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.video-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.buttons Button {
+  background-color: #3182ce;
+  color: white;
+  font-size: 1.1em;
+  padding: 12px 24px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.buttons Button:hover {
+  background-color: #2b6cb0;
+  transform: translateY(-5px);
+}
+
+.buttons Button:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+}
+
+.buttons Button:active {
+  background-color: #2c5282;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
   h1 {
-    z-index: 1; /* Ensures the text appears above the background */
+    font-size: 2.5em;
   }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .buttons Button {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+  }
+}

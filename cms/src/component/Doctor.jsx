@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import './Doctor.css';
+
 const Doctor = () => {
   const [doctors, setDoctors] = useState([]);
   const [currentDoctor, setCurrentDoctor] = useState({
@@ -9,6 +11,7 @@ const Doctor = () => {
     schedule: '',
     surgeries: '',
   });
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,18 +20,25 @@ const Doctor = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (currentDoctor.doctorID) {
 
+    if (!currentDoctor.doctorID) {
+      alert('Doctor ID is required.');
+      return;
+    }
+
+    if (isEditing) {
       setDoctors((prev) =>
         prev.map((doc) =>
           doc.doctorID === currentDoctor.doctorID ? currentDoctor : doc
         )
       );
+      setIsEditing(false);
     } else {
-      setDoctors((prev) => [
-        ...prev,
-        { ...currentDoctor, doctorID: Date.now().toString() },
-      ]);
+      if (doctors.some((doc) => doc.doctorID === currentDoctor.doctorID)) {
+        alert('Doctor ID already exists. Please use a unique Doctor ID.');
+        return;
+      }
+      setDoctors((prev) => [...prev, currentDoctor]);
     }
     setCurrentDoctor({
       doctorID: '',
@@ -42,6 +52,7 @@ const Doctor = () => {
 
   const editDoctor = (doctor) => {
     setCurrentDoctor(doctor);
+    setIsEditing(true);
   };
 
   const deleteDoctor = (doctorID) => {
@@ -57,12 +68,22 @@ const Doctor = () => {
       schedule: '',
       surgeries: '',
     });
+    setIsEditing(false);
   };
 
   return (
-    <div>
-      <h1>Clinic Management System</h1>
+    <div className="container">
+      <h1>Clinic Management System - Doctor Master</h1>
       <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="doctorID"
+          placeholder="Doctor ID"
+          value={currentDoctor.doctorID}
+          onChange={handleChange}
+          required
+          disabled={isEditing}
+        />
         <input
           type="text"
           name="doctorName"
@@ -103,42 +124,50 @@ const Doctor = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Save Doctor</button>
-        <button type="button" onClick={cancelEdit}>
-          Cancel
+        <button type="submit">
+          {isEditing ? 'Update Doctor' : 'Add Doctor'}
         </button>
+        {isEditing && (
+          <button type="button" onClick={cancelEdit}>
+            Cancel
+          </button>
+        )}
       </form>
 
       <h2>Doctors List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Doctor ID</th>
-            <th>Doctor Name</th>
-            <th>Specialization</th>
-            <th>Contact Information</th>
-            <th>Schedule</th>
-            <th>Surgeries</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {doctors.map((doctor) => (
-            <tr key={doctor.doctorID}>
-              <td>{doctor.doctorID}</td>
-              <td>{doctor.doctorName}</td>
-              <td>{doctor.specialization}</td>
-              <td>{doctor.contactInformation}</td>
-              <td>{doctor.schedule}</td>
-              <td>{doctor.surgeries}</td>
-              <td>
-                <button onClick={() => editDoctor(doctor)}>Edit</button>
-                <button onClick={() => deleteDoctor(doctor.doctorID)}>Delete</button>
-              </td>
+      {doctors.length === 0 ? (
+        <p>No doctors available.</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Doctor ID</th>
+              <th>Doctor Name</th>
+              <th>Specialization</th>
+              <th>Contact Information</th>
+              <th>Schedule</th>
+              <th>Surgeries</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {doctors.map((doctor) => (
+              <tr key={doctor.doctorID}>
+                <td>{doctor.doctorID}</td>
+                <td>{doctor.doctorName}</td>
+                <td>{doctor.specialization}</td>
+                <td>{doctor.contactInformation}</td>
+                <td>{doctor.schedule}</td>
+                <td>{doctor.surgeries}</td>
+                <td>
+                  <button onClick={() => editDoctor(doctor)}>Edit</button>
+                  <button onClick={() => deleteDoctor(doctor.doctorID)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
