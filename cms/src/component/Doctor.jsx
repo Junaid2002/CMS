@@ -141,13 +141,13 @@ const Doctor = () => {
         <table>
           <thead>
             <tr>
-              <th>Doctor ID</th>
-              <th>Doctor Name</th>
-              <th>Specialization</th>
-              <th>Contact Information</th>
-              <th>Schedule</th>
-              <th>Surgeries</th>
-              <th>Actions</th>
+              <th className="drc">Doctor ID</th>
+              <th className="drc">Doctor Name</th>
+              <th className="drc">Specialization</th>
+              <th className="drc">Contact Information</th>
+              <th className="drc">Schedule</th>
+              <th className="drc">Surgeries</th>
+              <th className="drc">Actions</th>
             </tr>
           </thead>
           <tbody>

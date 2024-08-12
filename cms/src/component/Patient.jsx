@@ -3,7 +3,6 @@ import './Patient.css';
 
 const Patient = () => {
   const [patients, setPatients] = useState([]);
-
   const [formState, setFormState] = useState({
     patientID: '',
     patientName: '',
@@ -15,7 +14,6 @@ const Patient = () => {
     medicalHistory: '',
     surgeries: '',
   });
-
   const [editingPatientID, setEditingPatientID] = useState(null);
 
   const handleChange = (e) => {
@@ -79,7 +77,7 @@ const Patient = () => {
   };
 
   return (
-    <div className="App">
+    <div className="container">
       <h1>Clinic Management System - Patient Master</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -204,20 +202,41 @@ const Patient = () => {
       {patients.length === 0 ? (
         <p>No patients available.</p>
       ) : (
-        <ul>
-          {patients.map((patient) => (
-            <li key={patient.patientID}>
-              <strong>{patient.patientName}</strong> - {patient.dob} - {patient.gender} -{' '}
-              {patient.contactInfo} - {patient.address} - {patient.emergencyContact}
-              <br />
-              <em>Medical History:</em> {patient.medicalHistory} <br />
-              <em>Surgeries:</em> {patient.surgeries}
-              <br />
-              <button className="edit" onClick={() => handleEdit(patient.patientID)}>Edit</button>
-              <button className="delete" onClick={() => handleDelete(patient.patientID)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th className="prc">Patient ID</th>
+              <th className="prc">Patient Name</th>
+              <th className="prc">Date of Birth</th>
+              <th className="prc">Gender</th>
+              <th className="prc">Contact Info</th>
+              <th className="prc">Address</th>
+              <th className="prc">Emergency Contact</th>
+              <th className="prc">Medical History</th>
+              <th className="prc">Surgeries</th>
+              <th className="prc">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {patients.map((patient) => (
+              <tr key={patient.patientID}>
+                <td>{patient.patientID}</td>
+                <td>{patient.patientName}</td>
+                <td>{patient.dob}</td>
+                <td>{patient.gender}</td>
+                <td>{patient.contactInfo}</td>
+                <td>{patient.address}</td>
+                <td>{patient.emergencyContact}</td>
+                <td>{patient.medicalHistory}</td>
+                <td>{patient.surgeries}</td>
+                <td>
+                  <button className="edit" onClick={() => handleEdit(patient.patientID)}>Edit</button>
+                  <button className="delete" onClick={() => handleDelete(patient.patientID)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
