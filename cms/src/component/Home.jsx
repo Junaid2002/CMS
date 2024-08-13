@@ -20,16 +20,19 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <h1>Clinic</h1>
+    <>
+      <h1 className='cli'>Clinic</h1>
+      <div className="vid">
       <Video />
+      </div>
       <div className="buttons">
         <Button onClick={handlePatient}>Patient</Button>
         <Button onClick={handleDoctor}>Doctor</Button>
         <Button onClick={handlePrescription}>Prescription</Button>
         <Button>Admin</Button>
       </div>
-    </div>
+    </>
+    
   );
 };
 

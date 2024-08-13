@@ -1,9 +1,6 @@
-.article {
-    height: 100%;
-    position: relative;
-    overflow: hidden;
+.video{
+    height: fit-content;
 }
-
 .picture {
     object-fit: cover;
     width: 100%;
