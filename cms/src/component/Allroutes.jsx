@@ -6,6 +6,7 @@ import Billing from './Billing';
 import Disease from './Disease'
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
+import Login from './Login';
 
 const AllRoutes = () => {
   return (
@@ -16,8 +17,9 @@ const AllRoutes = () => {
       <Route path="/prescription" element={<Prescription />} />
       <Route path="/billing" element={<Billing />} />
       <Route path="/disease" element={<Disease />} />
+      <Route path='/login' element={<Login/>}/>
     </Routes>
   );
 }
 
-export default AllRoutes;
+export default AllRoutes

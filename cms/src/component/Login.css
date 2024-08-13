@@ -1,0 +1,47 @@
+.outerBoxs {
+    border: 1px solid rgb(255, 255, 255);
+    display: flex;
+    flex-wrap: wrap;
+    margin: 7%;
+  }
+  .outerBox
+  {
+    background-color: aliceblue;
+    width:100%;
+  }
+  .loginBox {
+    width : 400px ;
+    font-style: oblique;
+    border: 1px solid rgb(255, 255, 255);
+    text-align: left;
+    padding: 5px;
+    margin-right: 10%;
+  }
+  .text
+  {
+    align-content: center;
+    justify-content: center;
+  }
+  .register {
+      width: 50%;
+  }
+  @media (max-width: 750px) {
+    .outerBoxs {
+      display: flex;
+      flex-direction: column;
+    }
+    .loginBox {
+      width:100%;
+      align-content: center;
+      justify-self:center;
+    }
+    .register
+    { 
+      display: contents;
+      align-content: center;
+      justify-self: center;
+    }
+    .text{
+      display: inline-block;
+    }
+  }
