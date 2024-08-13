@@ -18,6 +18,14 @@ const Home = () => {
     console.log("Navigating to Prescription page");
     navigate("/Prescription");
   };
+  const handleBilling = () => {
+    console.log("Navigating to Billing page");
+    navigate("/Billing");
+  };
+  const handleDisease = () => {
+    console.log("Navigating to Disease page");
+    navigate("/Disease");
+  };
 
   return (
     <>
@@ -29,6 +37,8 @@ const Home = () => {
         <Button onClick={handlePatient}>Patient</Button>
         <Button onClick={handleDoctor}>Doctor</Button>
         <Button onClick={handlePrescription}>Prescription</Button>
+        <Button onClick={handleBilling}>Billing</Button>
+        <Button onClick={handleDisease}>Disease</Button>
         <Button>Admin</Button>
       </div>
     </>

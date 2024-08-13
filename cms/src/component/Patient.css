@@ -1,58 +1,68 @@
-/* Patient.css */
-
-.App {
+body {
   font-family: Arial, sans-serif;
-  padding: 20px;
-  max-width: 900px;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  width: 80%;
   margin: 0 auto;
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-form {
-  background: #f9f9f9;
-  border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+.prc{
+  background-color: #007bff;
+  color: white;
+}
+h1, h2 {
+  font-size: 24px;
+  color: #333;
   margin-bottom: 20px;
 }
-
-form .form-group {
-  margin-bottom: 15px;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-form .form-group label {
-  display: block;
-  font-weight: bold;
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
   margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
 }
 
-form input, form select, form textarea {
-  width: 100%;
+.form-group input,
+.form-group select,
+.form-group textarea {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px;
+  width: 100%;
 }
 
-form input:disabled {
-  background-color: #e9ecef;
-  cursor: not-allowed;
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 form button {
+  padding: 10px 15px;
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  margin-right: 10px;
-  display: inline-block;
+  transition: background-color 0.3s ease;
 }
 
 form button:hover {
@@ -66,53 +76,52 @@ form button.cancel {
 form button.cancel:hover {
   background-color: #5a6268;
 }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
 
-h2 {
-  margin-top: 0;
+table th,
+table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
   color: #333;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+table tr:hover {
+  background-color: #f1f1f1;
 }
 
-ul li {
-  background: #f9f9f9;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-ul li strong {
-  display: block;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-ul li button {
-  margin-right: 5px;
+table button {
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
 }
 
-ul li button.edit {
+table .edit {
   background-color: #28a745;
-  color: #fff;
+  color: white;
 }
 
-ul li button.edit:hover {
+table .edit:hover {
   background-color: #218838;
 }
 
-ul li button.delete {
+table .delete {
   background-color: #dc3545;
-  color: #fff;
+  color: white;
 }
 
-ul li button.delete:hover {
+table .delete:hover {
   background-color: #c82333;
 }

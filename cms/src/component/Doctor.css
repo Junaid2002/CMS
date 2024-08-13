@@ -19,6 +19,10 @@ body, html {
     max-width: 900px;
     text-align: center;
   }
+  .drc{
+    background-color: #007BFF;
+    color: white;
+  }
   
   h1 {
     color: #333;
