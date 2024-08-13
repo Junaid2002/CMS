@@ -3,7 +3,8 @@ import Patient from './Patient';
 import Doctor from './Doctor';
 import Prescription from './Prescription';
 import Billing from './Billing';
-import Disease from './Disease'
+import Disease from './Disease';
+import Transaction from'./Transaction';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
 
@@ -16,6 +17,7 @@ const AllRoutes = () => {
       <Route path="/prescription" element={<Prescription />} />
       <Route path="/billing" element={<Billing />} />
       <Route path="/disease" element={<Disease />} />
+      <Route path="/transaction" element={<Transaction />} />
     </Routes>
   );
 }

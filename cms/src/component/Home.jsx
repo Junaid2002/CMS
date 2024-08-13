@@ -26,6 +26,11 @@ const Home = () => {
     console.log("Navigating to Disease page");
     navigate("/Disease");
   };
+  const handleTransaction = () => {
+    console.log("Navigating to Disease page");
+    navigate("/Transaction");
+  };
+
 
   return (
     <>
@@ -39,7 +44,7 @@ const Home = () => {
         <Button onClick={handlePrescription}>Prescription</Button>
         <Button onClick={handleBilling}>Billing</Button>
         <Button onClick={handleDisease}>Disease</Button>
-        <Button>Admin</Button>
+        <Button onClick={handleTransaction}>Admin</Button>
       </div>
     </>
     
