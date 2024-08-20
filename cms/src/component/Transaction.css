@@ -1,118 +1,94 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .transaction-details {
-    width: 80%;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    display: grid;
-    grid-column: span;
-  }
-  .save{
-    background-color: green;
-  }
-  .clear{
-    background: red;
-  }
-  h2 {
-    text-align: center;
-    color: #333333;
-    margin-bottom: 20px;
-    font-size: 24px;
-  }
-  
-  .current-date {
-    text-align: right;
-    font-size: 14px;
-    color: #666666;
-    margin-bottom: 20px;
-  }
-  
-  .selection {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .selection label {
-    font-weight: bold;
-    color: #333333;
-    margin-right: 10px;
-    flex: 1;
-  }
-  
-  .selection select {
-    padding: 8px;
-    font-size: 14px;
-    color: #333333;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    flex: 2;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  table th,
-  table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #dddddd;
-    color: #333333;
-  }
-  
-  table th {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-  }
-  
-  table tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .buttons {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    font-size: 14px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  button:active {
-    background-color: #004080;
-  }
-  
-  .success-message {
-    text-align: center;
-    margin-top: 20px;
-    color: #28a745;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f0f4f8; 
+}
+.transaction-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  padding: 2rem;
+  height: 100vh;
+  width: 100vw; 
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow-y: auto; 
+}
+h2, h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+.current-date {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+.selection {
+  margin-bottom: 1rem;
+  width: 100%; 
+  max-width: 400px; 
+}
+
+select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  border-radius: 8px; 
+  overflow: hidden; 
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+button.save {
+  background-color: #28a745;
+}
+
+button.save:hover {
+  background-color: #218838;
+}
+
+button.clear {
+  background-color: #dc3545;
+}
+
+button.clear:hover {
+  background-color: #c82333;
+}
+.success-message {
+  color: #28a745;
+  font-size: 1rem;
+  margin-top: 1rem;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Billing.css'; 
+import './Billing.css';
 
 const Billing = () => {
   const [bills, setBills] = useState([]);
@@ -41,28 +41,28 @@ const Billing = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Billing Master</h1>
+    <div className="billing-container">
+      <h1 className="billing-header">Billing Master</h1>
 
-      <form>
+      <form className="billing-form">
         <div>
-          <label>Bill ID: </label>
+          <label>Bill ID:</label>
           <input type="text" name="BillID" value={newBill.BillID} onChange={handleChange} required />
         </div>
         <div>
-          <label>Patient ID: </label>
+          <label>Patient ID:</label>
           <input type="text" name="PatientID" value={newBill.PatientID} onChange={handleChange} required />
         </div>
         <div>
-          <label>Date: </label>
+          <label>Date:</label>
           <input type="date" name="Date" value={newBill.Date} onChange={handleChange} required />
         </div>
         <div>
-          <label>Bill Amount: </label>
+          <label>Bill Amount:</label>
           <input type="number" name="BillAmount" value={newBill.BillAmount} onChange={handleChange} required />
         </div>
         <div>
-          <label>Payment Status: </label>
+          <label>Payment Status:</label>
           <select name="PaymentStatus" value={newBill.PaymentStatus} onChange={handleChange} required>
             <option value="">Select</option>
             <option value="Paid">Paid</option>
@@ -74,15 +74,15 @@ const Billing = () => {
         </button>
       </form>
 
-      <table >
+      <table className="billing-table">
         <thead>
-          <tr >
-            <th  className="trc">Bill ID</th>
-            <th  className="trc">Patient ID</th>
-            <th  className="trc">Date</th>
-            <th  className="trc">Bill Amount</th>
-            <th  className="trc">Payment Status</th>
-            <th  className="trc">Actions</th>
+          <tr>
+            <th>Bill ID</th>
+            <th>Patient ID</th>
+            <th>Date</th>
+            <th>Bill Amount</th>
+            <th>Payment Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
