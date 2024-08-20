@@ -7,15 +7,22 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/Login');
+    navigate('/');
   };
 
   const handleProfile = () => {
-    navigate('/profile');
+    const admin = {
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      role: 'Administrator',
+      age: '30',
+      gender: 'Male',
+    };
+    navigate('/profile', { state: { admin } });
   };
 
   const handleAddAdmin = () => {
-    navigate('/register'); 
+    navigate('/register');
   };
 
   return (
@@ -27,6 +34,8 @@ const Header = () => {
       alignItems="center"
       justifyContent="space-between"
       boxShadow="md"
+      position="relative"
+      zIndex={1}
     >
       <Text fontSize="xl" fontWeight="bold">
         Clinic Management Dashboard
@@ -34,28 +43,51 @@ const Header = () => {
 
       <Box display="flex" alignItems="center">
         <Button
-          colorScheme="teal"
+          colorScheme="blue"
+          bg="blue.500"
+          _hover={{ bg: 'blue.600' }}
           onClick={handleAddAdmin}
           mr={4}
+          size="md"
+          paddingX={6}
+          borderRadius="md"
         >
           Add New Admin
         </Button>
 
         <IconButton
           icon={<FaBell />}
-          variant="outline"
-          colorScheme="teal"
-          mr={4}
+          variant="solid"
+          colorScheme="orange"
           aria-label="Notifications"
+          mr={4}
+          _hover={{ bg: 'orange.600', color: 'white' }}
         />
 
         <Menu>
-          <MenuButton as={Button} colorScheme="teal" rightIcon={<FaUserCircle />}>
+          <MenuButton 
+            as={Button} 
+            colorScheme="purple"
+            rightIcon={<FaUserCircle />}
+            _hover={{ bg: 'purple.600' }}
+          >
             Profile
           </MenuButton>
-          <MenuList>
-            <MenuItem onClick={handleProfile}>View Profile</MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuList bg="gray.800" color="white">
+            <MenuItem 
+              onClick={handleProfile} 
+              _hover={{ bg: 'purple.600' }}
+              bg="purple.500"
+            >
+              View Profile
+            </MenuItem>
+            <MenuItem 
+              onClick={handleLogout} 
+              _hover={{ bg: 'purple.600' }}
+              bg="purple.500"
+            >
+              Logout
+            </MenuItem>
           </MenuList>
         </Menu>
 

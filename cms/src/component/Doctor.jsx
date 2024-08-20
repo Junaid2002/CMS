@@ -72,9 +72,9 @@ const Doctor = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Clinic Management System - Doctor Master</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="doctor-container">
+      <h1 className="doctor-header">Clinic Management System - Doctor Master</h1>
+      <form className="doctor-form" onSubmit={handleSubmit}>
         <input
           type="text"
           name="doctorID"
@@ -128,7 +128,7 @@ const Doctor = () => {
           {isEditing ? 'Update Doctor' : 'Add Doctor'}
         </button>
         {isEditing && (
-          <button type="button" onClick={cancelEdit}>
+          <button type="button" className="cancel" onClick={cancelEdit}>
             Cancel
           </button>
         )}
@@ -138,16 +138,16 @@ const Doctor = () => {
       {doctors.length === 0 ? (
         <p>No doctors available.</p>
       ) : (
-        <table>
+        <table className="doctor-table">
           <thead>
             <tr>
-              <th className="drc">Doctor ID</th>
-              <th className="drc">Doctor Name</th>
-              <th className="drc">Specialization</th>
-              <th className="drc">Contact Information</th>
-              <th className="drc">Schedule</th>
-              <th className="drc">Surgeries</th>
-              <th className="drc">Actions</th>
+              <th>Doctor ID</th>
+              <th>Doctor Name</th>
+              <th>Specialization</th>
+              <th>Contact Information</th>
+              <th>Schedule</th>
+              <th>Surgeries</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -160,8 +160,8 @@ const Doctor = () => {
                 <td>{doctor.schedule}</td>
                 <td>{doctor.surgeries}</td>
                 <td>
-                  <button onClick={() => editDoctor(doctor)}>Edit</button>
-                  <button onClick={() => deleteDoctor(doctor.doctorID)}>Delete</button>
+                  <button className="edit" onClick={() => editDoctor(doctor)}>Edit</button>
+                  <button className="delete" onClick={() => deleteDoctor(doctor.doctorID)}>Delete</button>
                 </td>
               </tr>
             ))}

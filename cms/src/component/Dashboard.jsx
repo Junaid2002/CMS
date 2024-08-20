@@ -59,10 +59,10 @@ const Dashboard = () => {
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th>Date</Th>
-                  <Th>Patient Name</Th>
-                  <Th>Service</Th>
-                  <Th isNumeric>Amount</Th>
+                  <Th bg="blue.100" color="blue.800" borderColor="blue.200">Date</Th>
+                  <Th bg="green.100" color="green.800" borderColor="green.200">Patient Name</Th>
+                  <Th bg="orange.100" color="orange.800" borderColor="orange.200">Service</Th>
+                  <Th bg="purple.100" color="purple.800" borderColor="purple.200" isNumeric>Amount</Th>
                 </Tr>
               </Thead>
               <Tbody>

@@ -1,110 +1,96 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-  .container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-  }
-  .trc{
-    color: white;
-    background-color: #007bff;
-  }
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  form div {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  form input, form select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  form button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  form button:hover {
-    background-color: #0056b3;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  table th, table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-  }
-  
-  table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  table button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 14px;
-    margin-right: 5px;
-  }
-  
-  table button.edit {
-    background-color: #28a745;
-  }
-  
-  table button.edit:hover {
-    background-color: #218838;
-  }
-  
-  table button.delete {
-    background-color: #dc3545;
-  }
-  
-  table button.delete:hover {
-    background-color: #c82333;
-  }
-  
+.billing-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f7f9fc;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+.billing-header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.billing-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.billing-form div {
+  margin-bottom: 1rem;
+}
+
+.billing-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.billing-form input,
+.billing-form select,
+.billing-form button {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.billing-form button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.billing-form button:hover {
+  background-color: #0056b3;
+}
+.billing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.billing-table th,
+.billing-table td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.billing-table th {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.billing-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.billing-table button {
+  padding: 0.5rem;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.billing-table button.edit {
+  background-color: #28a745;
+}
+
+.billing-table button.edit:hover {
+  background-color: #218838;
+}
+
+.billing-table button.delete {
+  background-color: #dc3545;
+}
+
+.billing-table button.delete:hover {
+  background-color: #c82333;
+}
