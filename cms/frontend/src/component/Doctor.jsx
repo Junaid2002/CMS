@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Doctor.css';
 
 const Doctor = () => {
@@ -13,12 +14,25 @@ const Doctor = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
 
+  useEffect(() => {
+    fetchDoctors();
+  }, []);
+
+  const fetchDoctors = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/doctors');
+      setDoctors(response.data);
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCurrentDoctor((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!currentDoctor.doctorID) {
@@ -26,28 +40,25 @@ const Doctor = () => {
       return;
     }
 
-    if (isEditing) {
-      setDoctors((prev) =>
-        prev.map((doc) =>
-          doc.doctorID === currentDoctor.doctorID ? currentDoctor : doc
-        )
-      );
-      setIsEditing(false);
-    } else {
-      if (doctors.some((doc) => doc.doctorID === currentDoctor.doctorID)) {
-        alert('Doctor ID already exists. Please use a unique Doctor ID.');
-        return;
+    try {
+      if (isEditing) {
+        await axios.put(`http://localhost:5000/api/doctors/${currentDoctor.doctorID}`, currentDoctor);
+        setIsEditing(false);
+      } else {
+        await axios.post('http://localhost:5000/api/doctors', currentDoctor);
       }
-      setDoctors((prev) => [...prev, currentDoctor]);
+      fetchDoctors();
+      setCurrentDoctor({
+        doctorID: '',
+        doctorName: '',
+        specialization: '',
+        contactInformation: '',
+        schedule: '',
+        surgeries: '',
+      });
+    } catch (error) {
+      console.error('Error saving doctor:', error);
     }
-    setCurrentDoctor({
-      doctorID: '',
-      doctorName: '',
-      specialization: '',
-      contactInformation: '',
-      schedule: '',
-      surgeries: '',
-    });
   };
 
   const editDoctor = (doctor) => {
@@ -55,8 +66,13 @@ const Doctor = () => {
     setIsEditing(true);
   };
 
-  const deleteDoctor = (doctorID) => {
-    setDoctors((prev) => prev.filter((doctor) => doctor.doctorID !== doctorID));
+  const deleteDoctor = async (doctorID) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/doctors/${doctorID}`);
+      fetchDoctors();
+    } catch (error) {
+      console.error('Error deleting doctor:', error);
+    }
   };
 
   const cancelEdit = () => {

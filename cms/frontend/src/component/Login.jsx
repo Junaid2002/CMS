@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import Validation from "./Validation";
@@ -11,43 +11,47 @@ const Login = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [data, setData] = useState([]);
-  async function fetchData() {
-    let res = await fetch("http://localhost:3000/user");
-    let loginarr = await res.json();
-    setData(loginarr);
-  }
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  function handleChange(e) {
+  const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-  }
+  };
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors(Validation(values));
-  }
 
-  useEffect(() => {
     if (Object.keys(errors).length === 0 && values.email !== "" && values.password !== "") {
-      const user = data.find((el) => el.email === values.email);
-
-      if (user) {
-        if (user.password === values.password) {
-          alert("Logged in successfully");
-        } else {
-          alert("Wrong password");
+      try {
+        const res = await fetch("http://localhost:5000/api/admins/login", { 
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
+        
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
         }
-      } else {
-        alert("Email is not registered, you can create a new account");
+        
+        const result = await res.json();
+
+        if (result.success) {
+          alert("Logged in successfully");
+          // Store the token (optional, depending on your authentication strategy)
+          localStorage.setItem('token', result.token);
+          // Redirect to the dashboard page
+          navigate("/dashboard");
+        } else {
+          alert(result.message || "Login failed");
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
+        alert("Login failed. Please try again.");
       }
     }
-  }, [errors, values, data]);
-
-  const nav = useNavigate();
+  };
 
   return (
     <div className="outerBox">

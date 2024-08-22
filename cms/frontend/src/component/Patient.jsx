@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Patient.css';
 
 const Patient = () => {
@@ -15,50 +16,62 @@ const Patient = () => {
     surgeries: '',
   });
   const [editingPatientID, setEditingPatientID] = useState(null);
+  useEffect(() => {
+    fetchPatients();
+  }, []);
 
+  const fetchPatients = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/patients');
+      setPatients(response.data);
+    } catch (error) {
+      console.error('Error fetching patients:', error);
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (editingPatientID) {
-      setPatients(
-        patients.map((patient) =>
-          patient.patientID === editingPatientID ? formState : patient
-        )
-      );
-      setEditingPatientID(null);
-    } else {
-      if (patients.some((patient) => patient.patientID === formState.patientID)) {
-        alert('PatientID already exists. Please use a unique PatientID.');
-        return;
+    try {
+      if (editingPatientID) {
+        await axios.put(`http://localhost:5000/api/patients/${editingPatientID}`, formState);
+        setEditingPatientID(null);
+      } else {
+        const response = await axios.post('http://localhost:5000/api/patients', formState);
+        setPatients([...patients, response.data]);
       }
-      setPatients([...patients, formState]);
-    }
-    setFormState({
-      patientID: '',
-      patientName: '',
-      dob: '',
-      gender: '',
-      contactInfo: '',
-      address: '',
-      emergencyContact: '',
-      medicalHistory: '',
-      surgeries: '',
-    });
-  };
+      setFormState({
+        patientID: '',
+        patientName: '',
+        dob: '',
+        gender: '',
+        contactInfo: '',
+        address: '',
+        emergencyContact: '',
+        medicalHistory: '',
+        surgeries: '',
+      });
 
+      fetchPatients(); 
+    } catch (error) {
+      console.error('Error saving patient:', error);
+    }
+  };
   const handleEdit = (patientID) => {
     const patientToEdit = patients.find((patient) => patient.patientID === patientID);
     setFormState(patientToEdit);
-    setEditingPatientID(patientID);
+    setEditingPatientID(patientToEdit._id);
   };
-
-  const handleDelete = (patientID) => {
-    setPatients(patients.filter((patient) => patient.patientID !== patientID));
+  const handleDelete = async (patientID) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/patients/${patientID}`);
+      fetchPatients(); 
+    } catch (error) {
+      console.error('Error deleting patient:', error);
+    }
   };
 
   const cancelEdit = () => {
@@ -219,7 +232,7 @@ const Patient = () => {
           </thead>
           <tbody>
             {patients.map((patient) => (
-              <tr key={patient.patientID}>
+              <tr key={patient._id}>
                 <td>{patient.patientID}</td>
                 <td>{patient.patientName}</td>
                 <td>{patient.dob}</td>
@@ -231,7 +244,7 @@ const Patient = () => {
                 <td>{patient.surgeries}</td>
                 <td>
                   <button className="edit" onClick={() => handleEdit(patient.patientID)}>Edit</button>
-                  <button className="delete" onClick={() => handleDelete(patient.patientID)}>Delete</button>
+                  <button className="delete" onClick={() => handleDelete(patient._id)}>Delete</button>
                 </td>
               </tr>
             ))}

@@ -1,49 +1,60 @@
 const express = require('express');
 const router = express.Router();
-const Billing = require('../models/Billing');
-router.post('/', async (req, res) => {
-  try {
-    const newBilling = new Billing(req.body);
-    const savedBilling = await newBilling.save();
-    res.status(201).json(savedBilling);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+const Billing = require('../Models/Billing');
 
 router.get('/', async (req, res) => {
   try {
-    const billings = await Billing.find().populate('patientId');
-    res.status(200).json(billings);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    const billings = await Billing.find();
+    res.json(billings);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
-router.get('/:id', async (req, res) => {
+router.post('/', async (req, res) => {
+  const billing = new Billing({
+    BillID: req.body.BillID,
+    PatientID: req.body.PatientID,
+    Date: req.body.Date,
+    BillAmount: req.body.BillAmount,
+    PaymentStatus: req.body.PaymentStatus,
+    AreaOfService: req.body.AreaOfService
+  });
+
   try {
-    const billing = await Billing.findById(req.params.id).populate('patientId');
-    if (!billing) return res.status(404).json({ error: 'Billing record not found' });
-    res.status(200).json(billing);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    const newBilling = await billing.save();
+    res.status(201).json(newBilling);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 });
 router.put('/:id', async (req, res) => {
   try {
-    const updatedBilling = await Billing.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedBilling) return res.status(404).json({ error: 'Billing record not found' });
-    res.status(200).json(updatedBilling);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    const billing = await Billing.findById(req.params.id);
+    if (!billing) return res.status(404).json({ message: 'Billing not found' });
+
+    billing.BillID = req.body.BillID;
+    billing.PatientID = req.body.PatientID;
+    billing.Date = req.body.Date;
+    billing.BillAmount = req.body.BillAmount;
+    billing.PaymentStatus = req.body.PaymentStatus;
+    billing.AreaOfService = req.body.AreaOfService;
+
+    const updatedBilling = await billing.save();
+    res.json(updatedBilling);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 });
+
 router.delete('/:id', async (req, res) => {
   try {
-    const deletedBilling = await Billing.findByIdAndDelete(req.params.id);
-    if (!deletedBilling) return res.status(404).json({ error: 'Billing record not found' });
-    res.status(200).json({ message: 'Billing record deleted successfully' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    const billing = await Billing.findById(req.params.id);
+    if (!billing) return res.status(404).json({ message: 'Billing not found' });
+
+    await billing.remove();
+    res.json({ message: 'Billing deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 

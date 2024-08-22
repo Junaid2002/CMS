@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [admins, setAdmins] = useState([]);
-  const [form, setForm] = useState({ name: '', email: '', role: '', age: '', gender: '' });
+  const [form, setForm] = useState({ name: '', email: '', role: '', age: '', gender: '', password: '' });
   const [editIndex, setEditIndex] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Register = () => {
     } else {
       setAdmins([...admins, form]);
     }
-    setForm({ name: '', email: '', role: '', age: '', gender: '' });
+    setForm({ name: '', email: '', role: '', age: '', gender: '', password: '' });
     setIsRegistered(true); 
   };
 
@@ -111,6 +111,19 @@ const Register = () => {
               <option value="Other">Other</option>
             </Select>
           </FormControl>
+          <FormControl id="password">
+            <FormLabel>Password</FormLabel>
+            <Input
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleInputChange}
+              placeholder="Enter admin password"
+              bg="white"
+              borderColor="gray.300"
+              _placeholder={{ color: 'gray.500' }}
+            />
+          </FormControl>
           <Button
             leftIcon={editIndex !== null ? <FaEdit /> : <FaSave />}
             colorScheme="teal"
@@ -150,10 +163,21 @@ const Register = () => {
                   <Td>{admin.age}</Td>
                   <Td>{admin.gender}</Td>
                   <Td>
-                    <Button leftIcon={<FaEdit />} colorScheme="blue" size="sm" onClick={() => handleEdit(index)} mr={2}>
+                    <Button
+                      leftIcon={<FaEdit />}
+                      colorScheme="blue"
+                      size="sm"
+                      onClick={() => handleEdit(index)}
+                      mr={2}
+                    >
                       Edit
                     </Button>
-                    <Button leftIcon={<FaTrash />} colorScheme="red" size="sm" onClick={() => handleDelete(index)}>
+                    <Button
+                      leftIcon={<FaTrash />}
+                      colorScheme="red"
+                      size="sm"
+                      onClick={() => handleDelete(index)}
+                    >
                       Delete
                     </Button>
                   </Td>

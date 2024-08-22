@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
 const DiseaseSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String },
-  symptoms: [{ type: String }],
-  treatment: { type: String },
+  DiseaseID: { type: String, required: true, unique: true },
+  DiseaseName: { type: String, required: true },
+  Description: { type: String, required: true },
+  Symptoms: { type: String, required: true },
+  DateDiagnosed: { type: Date, required: true },
+  NextVisitDate: { type: Date, default: null }
 });
 
 module.exports = mongoose.model('Disease', DiseaseSchema);

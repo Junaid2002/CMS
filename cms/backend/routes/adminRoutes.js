@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Admin = require('../models/Admin');
+const Admin = require('../Models/Admin');
 router.post('/', async (req, res) => {
   try {
     const newAdmin = new Admin(req.body);

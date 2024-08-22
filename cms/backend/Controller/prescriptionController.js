@@ -1,4 +1,4 @@
-const Prescription = require('../models/prescriptionModel');
+const Prescription = require('../Models/prescriptionModel');
 exports.getPrescriptions = async (req, res) => {
   try {
     const prescriptions = await Prescription.find();
