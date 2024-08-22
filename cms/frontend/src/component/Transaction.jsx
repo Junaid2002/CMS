@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Transaction.css';
 
 function Transaction() {
   const [transactions, setTransactions] = useState([]);
+  const [patients, setPatients] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [isSaved, setIsSaved] = useState(false); 
+  const [editTransactionId, setEditTransactionId] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const patientsResponse = await axios.get('http://localhost:5000/api/patients');
+        setPatients(patientsResponse.data);
 
-  const patients = [
-    { patientID: 'PA001', patientName: 'John', gender: 'Male', contactNo: '044236578', diseaseName: 'Dengue', dateDiagnosed: '01-08-2024', dosage: '500-1000 mg', medicationDetails: 'Acetaminophen', billAmount: 1200, paymentStatus: 'Paid', nextVisitDate: '02-08-2024' },
-    { patientID: 'PA002', patientName: 'Jane', gender: 'Female', contactNo: '044236579', diseaseName: 'Flu', dateDiagnosed: '05-08-2024', dosage: '250 mg', medicationDetails: 'Ibuprofen', billAmount: 800, paymentStatus: 'Pending', nextVisitDate: '10-08-2024' },
-  ];
+        const doctorsResponse = await axios.get('http://localhost:5000/api/doctors');
+        setDoctors(doctorsResponse.data);
 
-  const doctors = [
-    { doctorID: 'DR001', doctorName: 'Rishi', specialization: 'General Practitioner' },
-    { doctorID: 'DR002', doctorName: 'Sonia', specialization: 'Pediatrician' },
-  ];
+        const transactionsResponse = await axios.get('http://localhost:5000/api/transactions');
+        setTransactions(transactionsResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handlePatientSelect = (e) => {
     const patient = patients.find(p => p.patientID === e.target.value);
@@ -32,25 +44,67 @@ function Transaction() {
   const handleClear = () => {
     setSelectedPatient(null);
     setSelectedDoctor(null);
+    setEditTransactionId(null);
     setIsSaved(false); 
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (selectedPatient && selectedDoctor) {
-      setTransactions([...transactions, { ...selectedPatient, doctorName: selectedDoctor.doctorName }]);
-      setIsSaved(true); 
+      try {
+        const transactionData = {
+          patientID: selectedPatient.patientID,
+          doctorID: selectedDoctor.doctorID,
+          dosage: selectedPatient.dosage,
+          medicationDetails: selectedPatient.medicationDetails,
+          billAmount: selectedPatient.billAmount,
+          paymentStatus: selectedPatient.paymentStatus,
+          nextVisitDate: selectedPatient.nextVisitDate
+        };
+
+        if (editTransactionId) {
+          await axios.put(`http://localhost:5000/api/transactions/${editTransactionId}`, transactionData);
+          setTransactions(transactions.map(tx =>
+            tx._id === editTransactionId ? { ...tx, ...transactionData } : tx
+          ));
+          setEditTransactionId(null);
+        } else {
+          const response = await axios.post('http://localhost:5000/api/transactions', transactionData);
+          setTransactions([...transactions, response.data]);
+        }
+
+        setIsSaved(true);
+      } catch (error) {
+        console.error('Error saving transaction:', error);
+      }
     } else {
       alert('Please select a patient and a doctor.');
+    }
+  };
+
+  const handleEdit = (id) => {
+    const transactionToEdit = transactions.find((tx) => tx._id === id);
+    setSelectedPatient(patients.find(p => p.patientID === transactionToEdit.patientID));
+    setSelectedDoctor(doctors.find(d => d.doctorID === transactionToEdit.doctorID));
+    setEditTransactionId(id);
+    setIsSaved(false);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/transactions/${id}`);
+      setTransactions(transactions.filter((tx) => tx._id !== id));
+    } catch (error) {
+      console.error('Error deleting transaction:', error);
     }
   };
 
   const currentDate = new Date().toLocaleDateString();
 
   return (
-    <div className="transaction-details">
-      <h2>Clinic Transaction Details Page:</h2>
+    <div className="transaction-container">
+      <h2>Clinic Transaction Details</h2>
       <div className="current-date">Current Date: {currentDate}</div>
-      
+
       <div className="selection">
         <label htmlFor="patient-select">Select Patient ID: </label>
         <select id="patient-select" onChange={handlePatientSelect}>
@@ -62,7 +116,7 @@ function Transaction() {
           ))}
         </select>
       </div>
-      
+
       <div className="selection">
         <label htmlFor="doctor-select">Select Doctor ID: </label>
         <select id="doctor-select" onChange={handleDoctorSelect}>
@@ -151,10 +205,51 @@ function Transaction() {
         </div>
       )}
 
-      <button className="save" onClick={handleSave}>Save</button>
+      <button className="save" onClick={handleSave}>
+        {editTransactionId ? 'Update Transaction' : 'Save Transaction'}
+      </button>
       <button className="clear" onClick={handleClear}>Clear</button>
-      
+
       {isSaved && <div className="success-message">Details Saved successfully</div>}
+
+      <div className="transaction-list">
+        <h3>Transaction List</h3>
+        {transactions.length === 0 ? (
+          <p>No transactions available.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Patient ID</th>
+                <th>Doctor ID</th>
+                <th>Dosage</th>
+                <th>Medication Details</th>
+                <th>Bill Amount</th>
+                <th>Payment Status</th>
+                <th>Next Visit Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transactions.map((transaction) => (
+                <tr key={transaction._id}>
+                  <td>{transaction.patientID}</td>
+                  <td>{transaction.doctorID}</td>
+                  <td>{transaction.dosage}</td>
+                  <td>{transaction.medicationDetails}</td>
+                  <td>{transaction.billAmount}</td>
+                  <td>{transaction.paymentStatus}</td>
+                  <td>{transaction.nextVisitDate || 'N/A'}</td>
+                  <td>
+                    <button className="edit" onClick={() => handleEdit(transaction._id)}>Edit</button>
+                    <button className="delete" onClick={() => handleDelete(transaction._id)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </div>
   );
 }

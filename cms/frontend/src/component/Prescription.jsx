@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './Prescription.css'; 
+import axios from 'axios';
+import './Prescription.css';
 
-const PrescriptionForm = ({ onSave, editingPrescription }) => {
+const PrescriptionForm = ({ editingPrescription }) => {
     const [prescription, setPrescription] = useState({
         PrescriptionID: '',
         PatientID: '',
@@ -11,11 +12,28 @@ const PrescriptionForm = ({ onSave, editingPrescription }) => {
         Dosage: '',
     });
 
+    const [patients, setPatients] = useState([]);
+    const [doctors, setDoctors] = useState([]);
+
     useEffect(() => {
         if (editingPrescription) {
             setPrescription(editingPrescription);
         }
     }, [editingPrescription]);
+
+    useEffect(() => {
+        const fetchPatientsAndDoctors = async () => {
+            try {
+                const patientsResponse = await axios.get('http://localhost:5000/api/patients');
+                const doctorsResponse = await axios.get('http://localhost:5000/api/doctors');
+                setPatients(patientsResponse.data);
+                setDoctors(doctorsResponse.data);
+            } catch (error) {
+                console.error('Error fetching patients and doctors:', error);
+            }
+        };
+        fetchPatientsAndDoctors();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,17 +43,27 @@ const PrescriptionForm = ({ onSave, editingPrescription }) => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSave(prescription);
-        setPrescription({
-            PrescriptionID: '',
-            PatientID: '',
-            DoctorID: '',
-            Date: '',
-            MedicationDetails: '',
-            Dosage: '',
-        });
+        try {
+            if (editingPrescription) {
+               
+                await axios.put(`http://localhost:5000/api/prescriptions/${prescription.PrescriptionID}`, prescription);
+            } else {
+               
+                await axios.post('http://localhost:5000/api/prescriptions', prescription);
+            }
+            setPrescription({
+                PrescriptionID: '',
+                PatientID: '',
+                DoctorID: '',
+                Date: '',
+                MedicationDetails: '',
+                Dosage: '',
+            });
+        } catch (error) {
+            console.error('Error saving prescription:', error.response ? error.response.data : error.message);
+        }
     };
 
     return (
@@ -54,25 +82,37 @@ const PrescriptionForm = ({ onSave, editingPrescription }) => {
             </div>
             <div className="form-group">
                 <label htmlFor="PatientID">Patient ID:</label>
-                <input
-                    type="text"
+                <select
                     id="PatientID"
                     name="PatientID"
                     value={prescription.PatientID}
                     onChange={handleChange}
                     required
-                />
+                >
+                    <option value="">Select a Patient</option>
+                    {patients.map((patient) => (
+                        <option key={patient._id} value={patient._id}>
+                            {patient.name}
+                        </option>
+                    ))}
+                </select>
             </div>
             <div className="form-group">
                 <label htmlFor="DoctorID">Doctor ID:</label>
-                <input
-                    type="text"
+                <select
                     id="DoctorID"
                     name="DoctorID"
                     value={prescription.DoctorID}
                     onChange={handleChange}
                     required
-                />
+                >
+                    <option value="">Select a Doctor</option>
+                    {doctors.map((doctor) => (
+                        <option key={doctor._id} value={doctor._id}>
+                            {doctor.name}
+                        </option>
+                    ))}
+                </select>
             </div>
             <div className="form-group">
                 <label htmlFor="Date">Date:</label>
@@ -114,81 +154,4 @@ const PrescriptionForm = ({ onSave, editingPrescription }) => {
     );
 };
 
-const PrescriptionList = ({ prescriptions, onEdit, onDelete }) => {
-    return (
-        <div className="prescription-list">
-            <h2>Prescription List</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Prescription ID</th>
-                        <th>Patient ID</th>
-                        <th>Doctor ID</th>
-                        <th>Date</th>
-                        <th>Medication Details</th>
-                        <th>Dosage</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {prescriptions.map((prescription) => (
-                        <tr key={prescription.PrescriptionID}>
-                            <td>{prescription.PrescriptionID}</td>
-                            <td>{prescription.PatientID}</td>
-                            <td>{prescription.DoctorID}</td>
-                            <td>{prescription.Date}</td>
-                            <td>{prescription.MedicationDetails}</td>
-                            <td>{prescription.Dosage}</td>
-                            <td>
-                                <button onClick={() => onEdit(prescription)}>Edit</button>
-                                <button onClick={() => onDelete(prescription.PrescriptionID)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
-};
-
-const App = () => {
-    const [prescriptions, setPrescriptions] = useState([]);
-    const [editingPrescription, setEditingPrescription] = useState(null);
-
-    const handleSavePrescription = (prescription) => {
-        if (editingPrescription) {
-            setPrescriptions(
-                prescriptions.map((p) =>
-                    p.PrescriptionID === prescription.PrescriptionID ? prescription : p
-                )
-            );
-            setEditingPrescription(null);
-        } else {
-            setPrescriptions([...prescriptions, prescription]);
-        }
-    };
-
-    const handleEditPrescription = (prescription) => {
-        setEditingPrescription(prescription);
-    };
-
-    const handleDeletePrescription = (id) => {
-        setPrescriptions(prescriptions.filter((p) => p.PrescriptionID !== id));
-    };
-
-    return (
-        <div className="app-container">
-            <PrescriptionForm
-                onSave={handleSavePrescription}
-                editingPrescription={editingPrescription}
-            />
-            <PrescriptionList
-                prescriptions={prescriptions}
-                onEdit={handleEditPrescription}
-                onDelete={handleDeletePrescription}
-            />
-        </div>
-    );
-};
-
-export default App;
+export default PrescriptionForm;
