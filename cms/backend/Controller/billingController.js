@@ -1,4 +1,4 @@
-const Billing = require('../models/billingModel');
+const Billing = require('../Models/billingModel');
 exports.getBills = async (req, res) => {
   try {
     const bills = await Billing.find();

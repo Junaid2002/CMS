@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Disease.css';
 
 const Disease = () => {
@@ -13,47 +14,67 @@ const Disease = () => {
   });
   const [editingDiseaseID, setEditingDiseaseID] = useState(null);
 
+  useEffect(() => {
+    const fetchDiseases = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/diseases');
+        setDiseases(response.data);
+      } catch (error) {
+        console.error('Error fetching diseases:', error);
+      }
+    };
+
+    fetchDiseases();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { DiseaseID } = formState;
 
-    if (editingDiseaseID) {
-      setDiseases(
-        diseases.map((disease) =>
-          disease.DiseaseID === editingDiseaseID ? { ...formState, DiseaseID: editingDiseaseID } : disease
-        )
-      );
-      setEditingDiseaseID(null);
-    } else {
-      if (diseases.some((disease) => disease.DiseaseID === DiseaseID)) {
-        alert('DiseaseID already exists. Please use a unique DiseaseID.');
-        return;
+    try {
+      if (editingDiseaseID) {
+        await axios.put(`http://localhost:5000/api/diseases/${editingDiseaseID}`, formState);
+        setDiseases(
+          diseases.map((disease) =>
+            disease.DiseaseID === editingDiseaseID ? { ...formState, DiseaseID: editingDiseaseID } : disease
+          )
+        );
+        setEditingDiseaseID(null);
+      } else {
+        const response = await axios.post('http://localhost:5000/api/diseases', formState);
+        setDiseases([...diseases, response.data]);
       }
-      setDiseases([...diseases, { ...formState, DiseaseID: Date.now() }]);
+      setFormState({
+        DiseaseID: '',
+        DiseaseName: '',
+        Description: '',
+        Symptoms: '',
+        DateDiagnosed: '',
+        NextVisitDate: ''
+      });
+    } catch (error) {
+      console.error('Error saving disease:', error);
     }
-    setFormState({
-      DiseaseID: '',
-      DiseaseName: '',
-      Description: '',
-      Symptoms: '',
-      DateDiagnosed: '',
-      NextVisitDate: ''
-    });
   };
 
-  const handleEdit = (DiseaseID) => {
-    const diseaseToEdit = diseases.find((disease) => disease.DiseaseID === DiseaseID);
+  const handleEdit = (id) => {
+    const diseaseToEdit = diseases.find((disease) => disease.DiseaseID === id);
     setFormState(diseaseToEdit);
-    setEditingDiseaseID(DiseaseID);
+    setEditingDiseaseID(id);
   };
 
-  const handleDelete = (DiseaseID) => {
-    setDiseases(diseases.filter((disease) => disease.DiseaseID !== DiseaseID));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/diseases/${id}`);
+      setDiseases(diseases.filter((disease) => disease.DiseaseID !== id));
+    } catch (error) {
+      console.error('Error deleting disease:', error);
+    }
   };
 
   const cancelEdit = () => {
@@ -79,7 +100,6 @@ const Disease = () => {
               id="DiseaseID"
               type="text"
               name="DiseaseID"
-              placeholder="Disease ID"
               value={formState.DiseaseID}
               onChange={handleChange}
               required
@@ -92,7 +112,6 @@ const Disease = () => {
               id="DiseaseName"
               type="text"
               name="DiseaseName"
-              placeholder="Disease Name"
               value={formState.DiseaseName}
               onChange={handleChange}
               required
@@ -103,7 +122,6 @@ const Disease = () => {
             <textarea
               id="Description"
               name="Description"
-              placeholder="Description"
               value={formState.Description}
               onChange={handleChange}
               required
@@ -114,7 +132,6 @@ const Disease = () => {
             <textarea
               id="Symptoms"
               name="Symptoms"
-              placeholder="Symptoms"
               value={formState.Symptoms}
               onChange={handleChange}
               required
@@ -137,7 +154,7 @@ const Disease = () => {
               id="NextVisitDate"
               type="date"
               name="NextVisitDate"
-              value={formState.NextVisitDate}
+              value={formState.NextVisitDate || ''}
               onChange={handleChange}
             />
           </div>

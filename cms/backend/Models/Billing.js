@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
-const BillingSchema = new mongoose.Schema({
-  patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient', required: true },
-  amount: { type: Number, required: true },
-  date: { type: Date, default: Date.now },
-  service: { type: String, required: true },
+const billingSchema = new mongoose.Schema({
+  BillID: { type: String, required: true, unique: true },
+  PatientID: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient', required: true },
+  Date: { type: Date, required: true },
+  BillAmount: { type: Number, required: true },
+  PaymentStatus: { type: String, required: true },
+  AreaOfService: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Billing', BillingSchema);
+const Billing = mongoose.model('Billing', billingSchema);
+
+module.exports = Billing;
