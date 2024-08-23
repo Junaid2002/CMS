@@ -1,9 +1,8 @@
-import  {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Login.css";
 import Validation from "./Validation";
-import { Box, Button, Card, effect, Input } from "@chakra-ui/react";
+import { Box, Button, Card, Input } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import {Alert, AlertIcon,} from '@chakra-ui/react'
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -12,26 +11,25 @@ const Login = () => {
   });
 
   const [errors, setErrors] = useState({});
-  
-  const [data,setData]=useState([])
+  const [data, setData] = useState([]);
 
-  async function fetchData()
-  {
+  async function fetchData() {
     let res = await fetch("http://localhost:5000/api/admins");
-    let loginarr = await res.json()
-    setData(loginarr)
+    let loginarr = await res.json();
+    setData(loginarr);
   }
-  
-  fetchData();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   function handleChange(e) {
-    // console.log("asdad");
     setValues({ ...values, [e.target.name]: e.target.value });
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     setErrors(Validation(values));
-    console.log("runing");
   }
 
   useEffect(() => {
@@ -58,16 +56,17 @@ const Login = () => {
 
   function handleNavigate() {
     nav("/dashboard");
-  };
+  }
 
   return (
     <div className="outerBox">
-      <Box className="outerBoxs">
-        <Card className="loginBox">
+      <Box className="login-container">
+        <Card className="login-box">
           <h2>LOGIN</h2>
           <form className="form" onSubmit={handleSubmit}>
             <label>Email</label>
             <Input
+              className="input-glow"
               type="email"
               focusBorderColor="darkblue"
               placeholder="Email"
@@ -76,10 +75,11 @@ const Login = () => {
               value={values.email}
               onChange={handleChange}
             />
-            {errors.email && <p style={{ color: "red", fontSize: "10px" }}>{errors.email}</p>}
+            {errors.email && <p className="error-text">{errors.email}</p>}
 
             <label>Password</label>
             <Input
+              className="input-glow"
               type="password"
               focusBorderColor="darkblue"
               placeholder="Password"
@@ -88,13 +88,12 @@ const Login = () => {
               name="password"
               onChange={handleChange}
             />
-            {errors.password && <p style={{ color: "red", fontSize: "10px" }}>{errors.password}</p>}
+            {errors.password && <p className="error-text">{errors.password}</p>}
 
-            <a href="#">Forget Password?</a>
+            <a href="#" className="forgot-password">Forget Password?</a>
 
             <Button
-              className="button"
-              color="white"
+              className="btn-primary"
               colorScheme="facebook"
               size="md"
               variant="solid"

@@ -13,15 +13,17 @@
 }
 .back-button:hover {
   background-color: #218838;
-}.disease-container {
-  margin: 20px ;
-  border: 20px;
+}
+
+.disease-container {
+  margin: 20px;
   display: flex;
   flex-direction: column;
-  height: 98vh;
-  width: 98vw;
+  height: calc(100vh - 40px); 
+  width: calc(100vw - 40px); 
   background-color: #f5f5f5;
   padding: 1rem;
+  overflow-y: auto; 
 }
 
 .form-container, .list-container {
@@ -31,7 +33,6 @@
   padding: 1rem;
   margin-bottom: 1rem;
 }
-
 h1, h2 {
   color: #333;
 }
@@ -47,23 +48,19 @@ h2 {
 .form-group {
   margin-bottom: 1rem;
 }
-
 input[type="text"], input[type="date"], textarea {
   width: 100%;
   padding: 0.5rem;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
-
 textarea {
   resize: vertical;
 }
-
 .form-actions {
   display: flex;
   gap: 1rem;
 }
-
 button {
   padding: 0.5rem 1rem;
   border: none;
@@ -101,10 +98,10 @@ button.edit:hover {
 button.delete:hover {
   background-color: #c82333;
 }
-
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 1rem; 
 }
 
 th, td {
