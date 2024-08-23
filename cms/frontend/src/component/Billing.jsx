@@ -96,8 +96,8 @@ const Billing = () => {
             >
               <option value="">Select Patient</option>
               {patients.map(patient => (
-                <option key={patient._id} value={patient._id}>
-                  {patient._id}
+                <option key={patient.patientID} value={patient.patientID}>
+                  {patient.patientID}
                 </option>
               ))}
             </select>
