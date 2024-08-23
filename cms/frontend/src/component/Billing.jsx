@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Billing.css';
 
 const Billing = () => {
@@ -9,6 +10,12 @@ const Billing = () => {
   const [newBill, setNewBill] = useState({
     BillID: '', PatientID: '', Date: '', BillAmount: '', PaymentStatus: '', AreaOfService: ''
   });
+
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate('/dashboard'); // Navigate to the Dashboard page
+  };
 
   useEffect(() => {
     const fetchBillsAndPatients = async () => {
@@ -63,114 +70,117 @@ const Billing = () => {
   };
 
   return (
-    <div className="billing-container">
-      <h1 className="billing-header">Billing Master</h1>
+    <>
+      <button className="back-button" onClick={handleBackClick}>
+        Back
+      </button>
+      <div className="billing-container">
+        <form className="billing-form">
+          <div>
+            <label>Bill ID:</label>
+            <input
+              type="text"
+              name="BillID"
+              value={newBill.BillID}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Patient ID:</label>
+            <select
+              name="PatientID"
+              value={newBill.PatientID}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Patient</option>
+              {patients.map(patient => (
+                <option key={patient._id} value={patient._id}>
+                  {patient._id}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Date:</label>
+            <input
+              type="date"
+              name="Date"
+              value={newBill.Date}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Bill Amount:</label>
+            <input
+              type="number"
+              name="BillAmount"
+              value={newBill.BillAmount}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Payment Status:</label>
+            <select
+              name="PaymentStatus"
+              value={newBill.PaymentStatus}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select</option>
+              <option value="Paid">Paid</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
+          <div>
+            <label>Area of Service:</label>
+            <input
+              type="text"
+              name="AreaOfService"
+              value={newBill.AreaOfService}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="button" onClick={handleAddOrUpdate}>
+            {editIndex === -1 ? 'Add Bill' : 'Update Bill'}
+          </button>
+        </form>
 
-      <form className="billing-form">
-        <div>
-          <label>Bill ID:</label>
-          <input
-            type="text"
-            name="BillID"
-            value={newBill.BillID}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Patient ID:</label>
-          <select
-            name="PatientID"
-            value={newBill.PatientID}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Patient</option>
-            {patients.map(patient => (
-              <option key={patient._id} value={patient._id}>
-                {patient._id}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Date:</label>
-          <input
-            type="date"
-            name="Date"
-            value={newBill.Date}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Bill Amount:</label>
-          <input
-            type="number"
-            name="BillAmount"
-            value={newBill.BillAmount}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Payment Status:</label>
-          <select
-            name="PaymentStatus"
-            value={newBill.PaymentStatus}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select</option>
-            <option value="Paid">Paid</option>
-            <option value="Pending">Pending</option>
-          </select>
-        </div>
-        <div>
-          <label>Area of Service:</label>
-          <input
-            type="text"
-            name="AreaOfService"
-            value={newBill.AreaOfService}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="button" onClick={handleAddOrUpdate}>
-          {editIndex === -1 ? 'Add Bill' : 'Update Bill'}
-        </button>
-      </form>
-
-      <table className="billing-table">
-        <thead>
-          <tr>
-            <th>Bill ID</th>
-            <th>Patient ID</th>
-            <th>Date</th>
-            <th>Bill Amount</th>
-            <th>Payment Status</th>
-            <th>Area of Service</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bills.map((bill, index) => (
-            <tr key={bill.BillID}>
-              <td>{bill.BillID}</td>
-              <td>{bill.PatientID}</td>
-              <td>{bill.Date}</td>
-              <td>{bill.BillAmount}</td>
-              <td>{bill.PaymentStatus}</td>
-              <td>{bill.AreaOfService}</td>
-              <td>
-                <button className="edit" onClick={() => handleEdit(index)}>Edit</button>
-                <button className="delete" onClick={() => handleDelete(index)}>Delete</button>
-              </td>
+        <table className="billing-table">
+          <thead>
+            <tr>
+              <th>Bill ID</th>
+              <th>Patient ID</th>
+              <th>Date</th>
+              <th>Bill Amount</th>
+              <th>Payment Status</th>
+              <th>Area of Service</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {bills.map((bill, index) => (
+              <tr key={bill.BillID}>
+                <td>{bill.BillID}</td>
+                <td>{bill.PatientID}</td>
+                <td>{bill.Date}</td>
+                <td>{bill.BillAmount}</td>
+                <td>{bill.PaymentStatus}</td>
+                <td>{bill.AreaOfService}</td>
+                <td>
+                  <button className="edit" onClick={() => handleEdit(index)}>Edit</button>
+                  <button className="delete" onClick={() => handleDelete(index)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 
