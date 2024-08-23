@@ -1,43 +1,76 @@
-
-html, body {
-  height: 100%;
+body {
   margin: 0;
-  background-color: #ffffff; 
-}
-.outerBox {
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: linear-gradient(#00d5ff, #0095ff, rgba(93, 0, 255, 0.555));
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-}
-.outerBoxs {
-  width: 100%;
-  max-width: 400px; 
-  margin: auto;
-}
-.loginBox {
-  padding: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background-color: #ffffff;
-  text-align: center; 
-}
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem; 
-  align-items: center; 
-}
-input, button {
-  width: 100%; 
-  margin-bottom: 1rem;
-}
-a {
-  color: #007bff;
-  text-decoration: none;
-  font-size: 14px;
 }
 
-a:hover {
-  text-decoration: underline;
+.login-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-container h2 {
+  color: #007bff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-container .form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.login-container .form-control {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.login-container .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+.login-container .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.login-container .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.login-container .btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.login-container p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #333;
 }
