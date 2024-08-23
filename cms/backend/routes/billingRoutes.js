@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Billing = require('../Models/Billing');
+router.post('/', async (req, res) => {
+  try {
+    const newBilling = new Billing(req.body);
+    const savedBilling = await newBilling.save();
+    res.status(201).json(savedBilling);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 router.get('/', async (req, res) => {
   try {

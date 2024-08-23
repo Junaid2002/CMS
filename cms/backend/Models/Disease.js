@@ -8,5 +8,4 @@ const DiseaseSchema = new mongoose.Schema({
   DateDiagnosed: { type: Date, required: true },
   NextVisitDate: { type: Date, default: null }
 });
-
-module.exports = mongoose.model('Disease', DiseaseSchema);
+module.exports = mongoose.models.Disease || mongoose.model('Disease', DiseaseSchema);

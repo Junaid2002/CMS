@@ -1,8 +1,25 @@
-.disease-container {
+.back-button {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: auto;
+}
+.back-button:hover {
+  background-color: #218838;
+}.disease-container {
+  margin: 20px ;
+  border: 20px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+  height: 98vh;
+  width: 98vw;
   background-color: #f5f5f5;
   padding: 1rem;
 }

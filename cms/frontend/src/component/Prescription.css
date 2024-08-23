@@ -47,3 +47,14 @@
 .submit-button:hover {
   background-color: darkslategray;
 }
+.prescription-container{
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+
+}
+.l{
+  height: 5vh;
+  width: 5vw;
+}
