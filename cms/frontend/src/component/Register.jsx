@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Button, FormControl, FormLabel, Input, Select, Stack, Text, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
-import { FaSave, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaSave, FaTrash, FaEdit, FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const [admins, setAdmins] = useState([]);
@@ -14,17 +15,22 @@ const Register = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleAddAdmin = () => {
+  const handleAddAdmin = async () => {
     if (editIndex !== null) {
       const updatedAdmins = [...admins];
       updatedAdmins[editIndex] = form;
       setAdmins(updatedAdmins);
       setEditIndex(null);
     } else {
-      setAdmins([...admins, form]);
+      try {
+        await axios.post('http://localhost:5000/api/admins', form);
+        setAdmins([...admins, form]);
+        setIsRegistered(true);
+      } catch (error) {
+        console.error('Error registering admin:', error);
+      }
     }
     setForm({ name: '', email: '', role: '', age: '', gender: '', password: '' });
-    setIsRegistered(true); 
   };
 
   const handleEdit = (index) => {
@@ -41,9 +47,23 @@ const Register = () => {
   };
 
   return (
-    <div style={{ height: '100vh', width: '100vw', overflow: 'hidden' }}>
+    <div style={{ height: '100vh', width: '100vw', overflow: 'hidden', position: 'relative' }}>
+      <Button
+        leftIcon={<FaArrowLeft />}
+        colorScheme="blue"
+        size="sm"
+        variant="outline"
+        position="absolute"
+        top="1rem"
+        left="1rem"
+        onClick={() => navigate('/dashboard')} 
+      >
+        Back
+      </Button>
       <Box bg="teal.50" p={6} height="100%" overflowY="auto">
-        <Text fontSize="2xl" mb={4} fontWeight="bold">Register New Admin</Text>
+        <Text fontSize="2xl" mb={4} fontWeight="bold" textAlign="center">
+          Register New Admin
+        </Text>
         
         <Stack spacing={4} mb={6}>
           <FormControl id="name">
