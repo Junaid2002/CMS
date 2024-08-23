@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Prescription.css';
 import { useNavigate } from 'react-router-dom';
+import { background } from '@chakra-ui/react';
+import { color } from 'framer-motion';
 
 const PrescriptionForm = ({ editingPrescription }) => {
     const [prescription, setPrescription] = useState({
@@ -66,7 +68,7 @@ const PrescriptionForm = ({ editingPrescription }) => {
             console.error('Error saving prescription:', error.response ? error.response.data : error.message);
         }
     };
-
+    console.log(doctors)
     return (
        
         <div className="prescription-container">
@@ -95,9 +97,9 @@ const PrescriptionForm = ({ editingPrescription }) => {
                             required
                         >
                             <option value="">Select a Patient</option>
-                            {patients.map((patient) => (
-                                <option key={patient._id} value={patient._id}>
-                                    {patient.name}
+                            {patients.map((el) => (
+                                <option key={el.patientID} value={el.patientID}>
+                                    {el.patientID}
                                 </option>
                             ))}
                         </select>
@@ -112,9 +114,9 @@ const PrescriptionForm = ({ editingPrescription }) => {
                             required
                         >
                             <option value="">Select a Doctor</option>
-                            {doctors.map((doctor) => (
-                                <option key={doctor._id} value={doctor._id}>
-                                    {doctor.name}
+                            {doctors.map((el) => (
+                                <option key={el.doctorID} value={el.doctorID}>
+                                    {el.doctorID}
                                 </option>
                             ))}
                         </select>
