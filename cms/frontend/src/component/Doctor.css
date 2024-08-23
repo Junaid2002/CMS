@@ -1,6 +1,8 @@
 .doctor-container {
-  height: 100vh;
-  width: 100vw;
+  margin: 20px;
+  border: 20px;
+  height: 98vh;
+  width: 98vw;
   background-color: #f0f4f8;
   padding: 2rem;
   box-sizing: border-box;
@@ -95,4 +97,18 @@
 
 .doctor-table button.delete:hover {
   background-color: #c82333;
+}
+.back-button {
+  position: fixed;
+  top: 0px;   
+  left: 0px;  
+  padding: 8px 16px;
+  font-size: 14px;    
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: auto;
+  z-index: 1000;
 }
