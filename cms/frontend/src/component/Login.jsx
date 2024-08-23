@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import  {useEffect, useState } from "react";
 import "./Login.css";
 import Validation from "./Validation";
-import { Box, Button, Card, Input } from "@chakra-ui/react";
+import { Box, Button, Card, effect, Input } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import {Alert, AlertIcon,} from '@chakra-ui/react'
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -11,46 +12,52 @@ const Login = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+  
+  const [data,setData]=useState([])
 
-  const handleChange = (e) => {
+  async function fetchData()
+  {
+    let res = await fetch("http://localhost:5000/api/admins");
+    let loginarr = await res.json()
+    setData(loginarr)
+  }
+  
+  fetchData();
+
+  function handleChange(e) {
+    // console.log("asdad");
     setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+  }
+  function handleSubmit(e) {
     e.preventDefault();
     setErrors(Validation(values));
+    console.log("runing");
+  }
 
-    if (Object.keys(errors).length === 0 && values.email !== "" && values.password !== "") {
-      try {
-        const res = await fetch("http://localhost:5000/api/admins/login", { 
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        });
-        
-        if (!res.ok) {
-          throw new Error('Network response was not ok');
-        }
-        
-        const result = await res.json();
+  useEffect(() => {
+    if (
+      Object.keys(errors).length === 0 &&
+      values.email !== "" &&
+      values.password !== ""
+    ) {
+      const user = data.find((el) => el.email === values.email);
 
-        if (result.success) {
-          alert("Logged in successfully");
-          // Store the token (optional, depending on your authentication strategy)
-          localStorage.setItem('token', result.token);
-          // Redirect to the dashboard page
-          navigate("/dashboard");
+      if (user) {
+        if (user.password === values.password) {
+          handleNavigate();
         } else {
-          alert(result.message || "Login failed");
+          alert("Wrong password");
         }
-      } catch (error) {
-        console.error("Error during login:", error);
-        alert("Login failed. Please try again.");
+      } else {
+        alert("Email is not registered, you can create a new");
       }
     }
+  }, [errors]);
+
+  const nav = useNavigate();
+
+  function handleNavigate() {
+    nav("/dashboard");
   };
 
   return (
