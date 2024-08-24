@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Transaction = require('../Models/Transaction');
-const Patient = require('../Models/Patient');
-const Doctor = require('../Models/Doctor');
+const Patient = require('../Models/patient');
+const Doctor = require('../Models/doctor');
 const Disease = require('../Models/Disease');
 
 router.post('/', async (req, res) => {
