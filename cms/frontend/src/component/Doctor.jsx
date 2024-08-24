@@ -95,15 +95,17 @@ const Doctor = () => {
   };
 
   return (
-    <>
-      <button
-  onClick={handleBackClick}
-  className="back-button"
->
-  Back
-</button>
-
+    <div className="doctor-page">
       <div className="doctor-container">
+        <button
+          onClick={handleBackClick}
+          className="back-button"
+        >
+          Back
+        </button>
+
+        <h1 className="doctor-header">Doctor Master</h1>
+
         <form className="doctor-form" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -199,7 +201,7 @@ const Doctor = () => {
           </table>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

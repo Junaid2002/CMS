@@ -229,16 +229,16 @@ const Patient = () => {
             <table>
               <thead>
                 <tr>
-                  <th>Patient ID</th>
-                  <th>Patient Name</th>
-                  <th>Date of Birth</th>
-                  <th>Gender</th>
-                  <th>Contact Info</th>
-                  <th>Address</th>
-                  <th>Emergency Contact</th>
-                  <th>Medical History</th>
-                  <th>Surgeries</th>
-                  <th>Actions</th>
+                  <th className="bl">Patient ID</th>
+                  <th className="bl">Patient Name</th>
+                  <th className="bl">Date of Birth</th>
+                  <th className="bl">Gender</th>
+                  <th className="bl">Contact Info</th>
+                  <th className="bl">Address</th>
+                  <th className="bl">Emergency Contact</th>
+                  <th className="bl">Medical History</th>
+                  <th className="bl">Surgeries</th>
+                  <th className="bl">Actions</th>
                 </tr>
               </thead>
               <tbody>
