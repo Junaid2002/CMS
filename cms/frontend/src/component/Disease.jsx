@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import './Disease.css';
 
 const Disease = () => {
@@ -15,10 +15,10 @@ const Disease = () => {
   });
   const [editingDiseaseID, setEditingDiseaseID] = useState(null);
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate('/dashboard'); // Navigate to the Dashboard page
+    navigate('/dashboard');
   };
 
   useEffect(() => {
@@ -97,11 +97,14 @@ const Disease = () => {
   };
 
   return (
-    <>
+    <div className="disease-page">
       <button className="back-button" onClick={handleBackClick}>
         Back
       </button>
       <div className="disease-container">
+        <div className="header">
+          <h1>Disease Master</h1>
+        </div>
         <div className="form-container">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -218,7 +221,7 @@ const Disease = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

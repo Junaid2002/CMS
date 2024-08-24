@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Prescription.css';
 import { useNavigate } from 'react-router-dom';
-import { background } from '@chakra-ui/react';
-import { color } from 'framer-motion';
 
 const PrescriptionForm = ({ editingPrescription }) => {
     const [prescription, setPrescription] = useState({
@@ -68,13 +66,12 @@ const PrescriptionForm = ({ editingPrescription }) => {
             console.error('Error saving prescription:', error.response ? error.response.data : error.message);
         }
     };
-    console.log(doctors)
+
     return (
-       
         <div className="prescription-container">
-            <button className="back-button" onClick={() => navigate('/dashboard')}>Back</button>
             <div className="form-container">
-                <h1 className="l"></h1>
+                <button className="back-button" onClick={() => navigate('/dashboard')}>Back</button>
+                <h1 className="header">Prescription Master</h1>
                 <form className="prescription-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="PrescriptionID">Prescription ID:</label>
@@ -98,7 +95,7 @@ const PrescriptionForm = ({ editingPrescription }) => {
                         >
                             <option value="">Select a Patient</option>
                             {patients.map((el) => (
-                                <option key={el.patientID} value={el.patientID}>
+                                <option key={el._id} value={el._id}>
                                     {el.patientID}
                                 </option>
                             ))}
@@ -115,7 +112,7 @@ const PrescriptionForm = ({ editingPrescription }) => {
                         >
                             <option value="">Select a Doctor</option>
                             {doctors.map((el) => (
-                                <option key={el.doctorID} value={el.doctorID}>
+                                <option key={el._id} value={el._id}>
                                     {el.doctorID}
                                 </option>
                             ))}
@@ -160,7 +157,6 @@ const PrescriptionForm = ({ editingPrescription }) => {
                 </form>
             </div>
         </div>
-    
     );
 };
 

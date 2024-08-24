@@ -1,112 +1,133 @@
-.back-button {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  padding: 8px 16px;
-  font-size: 14px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: auto;
-}
-.back-button:hover {
-  background-color: #218838;
-}
 .billing-container {
-  height: 100vh;
-  width: 100vw;
-  background-color: #f7f9fc;
-  padding: 2rem;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
-.billing-header {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #333;
-}
-.billing-form {
-  background-color: #ffffff;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; 
+}
+
+.billing-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
 }
 
 .billing-form div {
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
 .billing-form label {
-  display: block;
-  margin-bottom: 0.5rem;
   font-weight: bold;
 }
 
-.billing-form input,
-.billing-form select,
-.billing-form button {
-  display: block;
+.billing-form input, .billing-form select {
   width: 100%;
-  margin-bottom: 0.75rem;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
+  padding: 8px;
+  border: 1px solid #ddd;
   border-radius: 4px;
 }
 
 .billing-form button {
-  background-color: #007bff;
-  color: #ffffff;
+  padding: 10px 20px;
   border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .billing-form button:hover {
-  background-color: #0056b3;
+  opacity: 0.9;
 }
+
+.billing-form button:focus {
+  outline: none;
+}
+
+.billing-form .add-button {
+  background-color: #007bff; 
+}
+
 .billing-table {
   width: 100%;
+  max-width: 600px;
   border-collapse: collapse;
 }
 
-.billing-table th,
-.billing-table td {
-  padding: 0.75rem;
+.billing-table th, .billing-table td {
+  padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
 }
 
 .billing-table th {
-  background-color: #007bff;
-  color: #ffffff;
+  background-color: #007bff; 
+  color: white;
+  font-weight: bold;
 }
 
 .billing-table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.billing-table button {
-  padding: 0.5rem;
+.billing-table tr:hover {
+  background-color: #ddd;
+}
+
+.back-button {
+  position: absolute; 
+  top: 10px;
+  left: 10px;
+  padding: 10px 20px;
   border: none;
-  color: #ffffff;
+  border-radius: 4px;
+  background-color: #28a745; 
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10; 
+}
+
+.back-button:hover {
+  opacity: 0.8;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+
+.edit {
+  background-color: #28a745; 
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.billing-table button.edit {
-  background-color: #28a745;
+.edit:hover {
+  opacity: 0.8;
 }
 
-.billing-table button.edit:hover {
-  background-color: #218838;
+.delete {
+  background-color: #dc3545; 
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.billing-table button.delete {
-  background-color: #dc3545;
-}
-
-.billing-table button.delete:hover {
-  background-color: #c82333;
+.delete:hover {
+  opacity: 0.8;
 }
