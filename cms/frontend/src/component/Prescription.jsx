@@ -68,11 +68,10 @@ const PrescriptionForm = ({ editingPrescription }) => {
     };
 
     return (
-       
         <div className="prescription-container">
-            <button className="back-button" onClick={() => navigate('/dashboard')}>Back</button>
             <div className="form-container">
-                <h1 className="l"></h1>
+                <button className="back-button" onClick={() => navigate('/dashboard')}>Back</button>
+                <h1 className="header">Prescription Master</h1>
                 <form className="prescription-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="PrescriptionID">Prescription ID:</label>
@@ -95,9 +94,9 @@ const PrescriptionForm = ({ editingPrescription }) => {
                             required
                         >
                             <option value="">Select a Patient</option>
-                            {patients.map((patient) => (
-                                <option key={patient._id} value={patient._id}>
-                                    {patient.name}
+                            {patients.map((el) => (
+                                <option key={el._id} value={el._id}>
+                                    {el.patientID}
                                 </option>
                             ))}
                         </select>
@@ -112,9 +111,9 @@ const PrescriptionForm = ({ editingPrescription }) => {
                             required
                         >
                             <option value="">Select a Doctor</option>
-                            {doctors.map((doctor) => (
-                                <option key={doctor._id} value={doctor._id}>
-                                    {doctor.name}
+                            {doctors.map((el) => (
+                                <option key={el._id} value={el._id}>
+                                    {el.doctorID}
                                 </option>
                             ))}
                         </select>
@@ -158,7 +157,6 @@ const PrescriptionForm = ({ editingPrescription }) => {
                 </form>
             </div>
         </div>
-    
     );
 };
 

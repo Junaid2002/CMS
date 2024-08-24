@@ -1,162 +1,125 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  overflow: hidden; 
-}
-
 .patient-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
-  width: 200vw;
+  height: 100vh;
+  background-color: #f0f0f0; 
+  overflow: auto; 
 }
 
 .container {
-  width: 100vw;
-  max-width: 1200px; 
-  height: 90vh; 
-  background: #fff;
+  width: 80%;
+  max-width: 1200px;
+  background: white;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  position: relative;
+  overflow-y: auto; 
+  max-height: 90vh; 
 }
 
-.prc {
-  background-color: #007bff;
-  color: white;
+.container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out;
 }
 
-h1, h2 {
-  font-size: 24px;
-  color: #333;
+.container .form-container, .container .list-container {
   margin-bottom: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 20px; 
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 100%;
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-form button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-form button:hover {
-  background-color: #0056b3;
-}
-
-form button.cancel {
-  background-color: #6c757d;
-}
-
-form button.cancel:hover {
-  background-color: #5a6268;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table th,
-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-table th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-  color: #333;
-}
-
-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-table button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-right: 10px;
-}
-
-table .edit {
-  background-color: #28a745;
-  color: white;
-}
-
-table .edit:hover {
-  background-color: #218838;
-}
-
-table .delete {
-  background-color: #dc3545;
-  color: white;
-}
-
-table .delete:hover {
-  background-color: #c82333;
-}
-
-.back-button {
+.container .back-button {
   position: absolute;
   top: 20px;
   left: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  transition: background-color 0.3s ease;
+  animation: slideIn 0.5s ease-out;
+}
+
+.container .back-button:hover {
+  background-color: #218838; 
+}
+
+.container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.container th, .container td {
+  padding: 10px;
+  text-align: left;
+}
+
+.container th {
+  background-color: #007bff; 
+  color: white; 
+  text-align: center; 
+}
+
+.container td {
+  border: 1px solid #ddd;
+}
+
+.container .edit, .container .delete {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.back-button:hover {
-  background-color: #0056b3;
+.container .edit {
+  background-color: #28a745; 
 }
+
+.container .edit:hover {
+  background-color: #218838; 
+}
+
+.container .delete {
+  background-color: #dc3545; 
+  margin-left: 5px;
+}
+
+.container .delete:hover {
+  background-color: #c82333; 
+}
+
+.container button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff; 
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.container button:hover {
+  background-color: #0056b3; 
+}
+.bl{
+  background-color: blue;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
