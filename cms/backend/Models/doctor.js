@@ -9,4 +9,4 @@ const doctorSchema = new mongoose.Schema({
   surgeries: String,
 });
 
-module.exports = mongoose.model('Doctor', doctorSchema);
+module.exports = mongoose.models.Doctor || mongoose.model('Doctor', doctorSchema)

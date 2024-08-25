@@ -1,40 +1,49 @@
+// const express = require('express');
+// const router = express.Router();
+// const Transaction = require('../Models/Transaction');
+// const Patient = require('../Models/patient');
+// const Doctor = require('../Models/Doctor');
+// const Disease = require('../Models/Disease');
+
+// router.post('/', async (req, res) => {
+//   try {
+//     const transactionData  = req.body;
+//  console.log(transactionData)
+//     if (!transactionData.patientID || !transactionData.doctorID || !transa.diseaseID) {
+//       return res.status(404).json({ error: 'Patient, Doctor, or Disease not found' });
+//     }
+      
+//       await Transaction.insertMany([transactionData]);  
+//   }
+//   catch(e)
+//   {
+//     console.log(e)
+//   }
+// });
 const express = require('express');
 const router = express.Router();
 const Transaction = require('../Models/Transaction');
 const Patient = require('../Models/patient');
-const Doctor = require('../Models/doctor');
-const Disease = require('../models/Disease');
+const Doctor = require('../Models/Doctor');
+const Disease = require('../Models/Disease');
 
 router.post('/', async (req, res) => {
   try {
-    const { patientID, doctorID, diseaseID, dosage, medicationDetails, billAmount, paymentStatus, nextVisitDate } = req.body;
+    const transactionData = req.body;
+    console.log(transactionData +"  "+ 'backend');
 
-    const patient = await Patient.findById(patientID);
-    const doctor = await Doctor.findById(doctorID);
-    const disease = await Disease.findById(diseaseID);
-
-    if (!patient || !doctor || !disease) {
-      return res.status(404).json({ error: 'Patient, Doctor, or Disease not found' });
+    if (!transactionData.patientID || !transactionData.doctorID || !transactionData.diseaseID) {
+      return res.status(400).json({ error: 'Patient, Doctor, or Disease ID is missing'});
     }
 
-    const newTransaction = new Transaction({
-      patientID,
-      doctorID,
-      diseaseID,
-      dosage,
-      medicationDetails,
-      billAmount,
-      paymentStatus,
-      nextVisitDate
-    });
-
-    const savedTransaction = await newTransaction.save();
-    res.status(201).json(savedTransaction);
-  } catch (error) {
-    console.error(error); 
-    res.status(400).json({ error: error.message });
+    const newTransaction = await Transaction.create(transactionData);
+    res.status(201).json(newTransaction);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: 'An error occurred while processing the transaction' });
   }
 });
+
 router.get('/', async (req, res) => {
   try {
     const transactions = await Transaction.find()
