@@ -6,7 +6,7 @@ const Profile = () => {
   const navigate = useNavigate(); 
 
   const admin = {
-    name: 'Junaid Khan',
+    name: 'Junaid Ashraf Khan',
     email: 'ak@gmail.com',
     role: 'administrator',
     age: 21,
