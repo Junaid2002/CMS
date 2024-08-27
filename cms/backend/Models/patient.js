@@ -12,4 +12,4 @@ const patientSchema = new mongoose.Schema({
   surgeries: { type: String }
 });
 
-module.exports = mongoose.model('Patient', patientSchema);
+module.exports =mongoose.models.Patient||mongoose.model('Patient', patientSchema);

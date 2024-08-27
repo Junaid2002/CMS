@@ -3,6 +3,7 @@ import "./Login.css";
 import Validation from "./Validation";
 import { Box, Button, Card, Input } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { FaUserMd } from "react-icons/fa"; 
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -103,6 +104,8 @@ const Login = () => {
             </Button>
           </form>
         </Card>
+        <FaUserMd className="doctor-icon" />
+        {}
       </Box>
     </div>
   );
