@@ -78,6 +78,7 @@ const Header = () => {
               onClick={handleProfile} 
               _hover={{ bg: 'purple.600' }}
               bg="purple.500"
+              size="sm"
             >
               View Profile
             </MenuItem>
@@ -85,6 +86,7 @@ const Header = () => {
               onClick={handleLogout} 
               _hover={{ bg: 'purple.600' }}
               bg="purple.500"
+              size="sm" 
             >
               Logout
             </MenuItem>

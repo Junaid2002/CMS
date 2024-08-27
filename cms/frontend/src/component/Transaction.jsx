@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Transaction.css';
 import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios';
 
 function Transaction() {
   const [transactions, setTransactions] = useState([]);
+  
   const [selectedPatient, setSelectedPatient] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState([]);
   const [selectedDisease, setSelectedDisease] = useState([]);
@@ -84,6 +86,7 @@ function Transaction() {
     prescriptions.forEach((el) => {
       if (el.PatientID.patientID == pid) {
         setSelectedPrescription(el);
+        // console.log(selectedPrescription)
       }
     });
   }
@@ -115,14 +118,51 @@ function Transaction() {
     setIsSaved(false);
   };
 
-  const handleSave = () => {
-    if (selectedPatient && selectedDoctor) {
-      setTransactions([...transactions, { ...selectedPatient, doctorName: selectedDoctor.doctorName }]);
+  function handleSave () {
+    
+   if((selectedPatient.patientID == undefined && selectedDoctor.doctorID == undefined && selectedDisease.DiseaseID == undefined) ) {
+    alert('Please select a patient and doctor and disease');
+    navigate('/transaction')
+  }
+  else{
+    // console.log(transactions)
+    setTransactions([
+        ...transactions, 
+        {
+           p_id: selectedPatient._id,
+           d_id: selectedDoctor._id,
+           di_id: selectedDisease._id,
+           dosage: selectedPrescription.Dosage,
+           medicationDetails: selectedPrescription.MedicationDetails,
+           billAmount: selectedBill.BillAmount,
+           paymentStatus: selectedBill.PaymentStatus,
+           nextVisitDate: selectedDisease.NextVisitDate,
+        }
+      ]);
       setIsSaved(true);
-    } else {
-      alert('Please select a patient and a doctor.');
     }
   };
+  
+  useEffect(() => {
+    if (isSaved) {
+      console.log("frontend")
+      console.log(transactions);
+      sendData();
+      setIsSaved(false);
+    }
+  }, [isSaved, transactions]);
+  
+
+async function sendData()
+{
+  try{
+    await axios.post("http://localhost:5000/api/transactions", transactions[0]);
+
+  }
+  catch(e){
+    console.log(e)
+  }
+}
 
   const handleBack = () => {
     navigate('/dashboard');
