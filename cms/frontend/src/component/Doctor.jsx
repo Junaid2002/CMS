@@ -94,6 +94,10 @@ const Doctor = () => {
     navigate('/dashboard');
   };
 
+  const handleNextClick = () => {
+    navigate('/prescription');
+  };
+
   return (
     <div className="doctor-page">
       <div className="doctor-container">
@@ -200,6 +204,13 @@ const Doctor = () => {
             </tbody>
           </table>
         )}
+
+        <button
+          onClick={handleNextClick}
+          className="next-button"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

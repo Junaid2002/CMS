@@ -17,6 +17,10 @@ const Billing = () => {
     navigate('/dashboard'); 
   };
 
+  const handleNextClick = () => {
+    navigate('/disease'); 
+  };
+
   useEffect(() => {
     const fetchBillsAndPatients = async () => {
       try {
@@ -71,9 +75,14 @@ const Billing = () => {
 
   return (
     <div className="billing-container">
-      <button className="back-button" onClick={handleBackClick}>
-        Back
-      </button>
+      <div className="button-container">
+        <button className="back-button" onClick={handleBackClick}>
+          Back
+        </button>
+        <button className="next-button" onClick={handleNextClick}>
+          Next
+        </button>
+      </div>
       <div className="header">Billing Master</div>
       <form className="billing-form">
         <div>

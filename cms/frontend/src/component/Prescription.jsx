@@ -67,6 +67,10 @@ const PrescriptionForm = ({ editingPrescription }) => {
         }
     };
 
+    const handleNextClick = () => {
+        navigate('/billing');
+    };
+
     return (
         <div className="prescription-container">
             <div className="form-container">
@@ -155,6 +159,9 @@ const PrescriptionForm = ({ editingPrescription }) => {
                         {editingPrescription ? 'Update' : 'Add'}
                     </button>
                 </form>
+                <button className="next-button" onClick={handleNextClick}>
+                    Next
+                </button>
             </div>
         </div>
     );

@@ -34,9 +34,11 @@ const Dashboard = () => {
   };
 
   const recentTransactions = [
-    { id: 1, date: '2024-08-20', patient: 'John Doe', amount: '$200' },
-    { id: 2, date: '2024-08-21', patient: 'Jane Smith', amount: '$150' },
-    { id: 3, date: '2024-08-22', patient: 'Bob Johnson', amount: '$300' },
+    { id: 1, date: '2024-08-26', patient: 'Ayan', amount: '$900' },
+    { id: 2, date: '2024-08-23', patient: 'Inzamam', amount: '$1000' },
+    { id: 3, date: '2024-08-22', patient: 'Junaid', amount: '$2000' },
+    { id: 4, date: '2024-08-22', patient: 'ayush', amount: '$3000' },
+    { id: 5, date: '2024-08-22', patient: 'Sahil', amount: '$5000' },
   ];
 
   return (
@@ -64,9 +66,9 @@ const Dashboard = () => {
 
           <Grid templateColumns="repeat(3, 1fr)" gap={6} mb={6}>
             {[
-              { label: 'Total Patients', value: '150', bgColor: 'blue.50', hoverColor: 'blue.100' },
-              { label: 'Appointments', value: '32', bgColor: 'green.50', hoverColor: 'green.100' },
-              { label: 'Revenue', value: '$5,200', bgColor: 'yellow.50', hoverColor: 'yellow.100' },
+              { label: 'Total Patients', value: '5', bgColor: 'blue.50', hoverColor: 'blue.100' },
+              { label: 'Appointments', value: '5', bgColor: 'green.50', hoverColor: 'green.100' },
+              { label: 'Revenue', value: '$11900', bgColor: 'yellow.50', hoverColor: 'yellow.100' },
             ].map((item, index) => (
               <GridItem
                 key={index}

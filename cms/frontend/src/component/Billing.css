@@ -6,7 +6,48 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: relative; 
+  position: relative;
+  max-height: 100vh; /* Limit container height to viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  width: 100%; /* Ensure container takes full width */
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+}
+
+.back-button,
+.next-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.back-button {
+  background-color: #28a745; 
+}
+
+.next-button {
+  background-color: #007bff; 
+}
+
+.back-button:hover,
+.next-button:hover {
+  opacity: 0.8;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out;
 }
 
 .billing-form {
@@ -79,33 +120,6 @@
   background-color: #ddd;
 }
 
-.back-button {
-  position: absolute; 
-  top: 10px;
-  left: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #28a745; 
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 10; 
-}
-
-.back-button:hover {
-  opacity: 0.8;
-}
-
-.header {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  animation: fadeIn 2s ease-in-out;
-}
-
-
 .edit {
   background-color: #28a745; 
   color: white;
@@ -130,4 +144,22 @@
 
 .delete:hover {
   opacity: 0.8;
+}
+
+/* Optional: Customize scrollbar appearance for Webkit browsers */
+.billing-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.billing-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.billing-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+.billing-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
