@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Patient.css';
 import { useNavigate } from 'react-router-dom';
 
+
 const Patient = () => {
   const [patients, setPatients] = useState([]);
   const [formState, setFormState] = useState({
@@ -20,9 +21,7 @@ const Patient = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchPatients();
-  }, []);
-
+ 
   const fetchPatients = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/patients');
@@ -31,6 +30,8 @@ const Patient = () => {
       console.error('Error fetching patients:', error);
     }
   };
+    fetchPatients();
+},[]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,11 +40,17 @@ const Patient = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const {PatientID} = formState;
 
     try {
       if (editingPatientID) {
         await axios.put(`http://localhost:5000/api/patients/${editingPatientID}`, formState);
-        setEditingPatientID(null);
+        setPatients(
+          patients.map((patient) =>
+            patient.PatientID ===editingPatientID ? { ...formState, PatientID: editingPatientID} : patient
+        )
+      );
+      setEditingPatientID(null);
       } else {
         const response = await axios.post('http://localhost:5000/api/patients', formState);
         setPatients([...patients, response.data]);
@@ -59,23 +66,21 @@ const Patient = () => {
         medicalHistory: '',
         surgeries: '',
       });
-
-      fetchPatients();
     } catch (error) {
       console.error('Error saving patient:', error);
     }
   };
 
-  const handleEdit = (patientID) => {
-    const patientToEdit = patients.find((patient) => patient.patientID === patientID);
+  const handleEdit = (id) => {
+    const patientToEdit = patients.find((patient) => patient.patientID === id);
     setFormState(patientToEdit);
-    setEditingPatientID(patientID);
+    setEditingPatientID(id);
   };
 
-  const handleDelete = async (patientID) => {
+  const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/patients/${patientID}`);
-      fetchPatients();
+      await axios.delete(`http://localhost:5000/api/patients/${id}`);
+      setPatients(patients.filter((patient) => patient.PatientID  !== id));
     } catch (error) {
       console.error('Error deleting patient:', error);
     }
@@ -100,6 +105,7 @@ const Patient = () => {
     <div className="patient-page">
       <div className="container">
         <button className="back-button" onClick={() => navigate('/dashboard')}>Back</button>
+        <button className="next-button" onClick={() => navigate('/doctor')}>Next</button>
         <div className="form-container">
           <h1>Patient Master</h1>
           <form onSubmit={handleSubmit}>

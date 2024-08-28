@@ -21,6 +21,10 @@ const Disease = () => {
     navigate('/dashboard');
   };
 
+  const handleNextClick = () => {
+    navigate('/transaction'); 
+  };
+
   useEffect(() => {
     const fetchDiseases = async () => {
       try {
@@ -189,37 +193,42 @@ const Disease = () => {
           {diseases.length === 0 ? (
             <p>No diseases available.</p>
           ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th>Disease ID</th>
-                  <th>Disease Name</th>
-                  <th>Description</th>
-                  <th>Symptoms</th>
-                  <th>Date Diagnosed</th>
-                  <th>Next Visit Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {diseases.map((disease) => (
-                  <tr key={disease.DiseaseID}>
-                    <td>{disease.DiseaseID}</td>
-                    <td>{disease.DiseaseName}</td>
-                    <td>{disease.Description}</td>
-                    <td>{disease.Symptoms}</td>
-                    <td>{disease.DateDiagnosed}</td>
-                    <td>{disease.NextVisitDate || 'N/A'}</td>
-                    <td>
-                      <button className="edit" onClick={() => handleEdit(disease.DiseaseID)}>Edit</button>
-                      <button className="delete" onClick={() => handleDelete(disease.DiseaseID)}>Delete</button>
-                    </td>
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Disease ID</th>
+                    <th>Disease Name</th>
+                    <th>Description</th>
+                    <th>Symptoms</th>
+                    <th>Date Diagnosed</th>
+                    <th>Next Visit Date</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {diseases.map((disease) => (
+                    <tr key={disease.DiseaseID}>
+                      <td>{disease.DiseaseID}</td>
+                      <td>{disease.DiseaseName}</td>
+                      <td>{disease.Description}</td>
+                      <td>{disease.Symptoms}</td>
+                      <td>{disease.DateDiagnosed}</td>
+                      <td>{disease.NextVisitDate || 'N/A'}</td>
+                      <td>
+                        <button className="edit" onClick={() => handleEdit(disease.DiseaseID)}>Edit</button>
+                        <button className="delete" onClick={() => handleDelete(disease.DiseaseID)}>Delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
+        <button className="next-button" onClick={handleNextClick}>
+          Next
+        </button>
       </div>
     </div>
   );

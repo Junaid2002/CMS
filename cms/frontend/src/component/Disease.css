@@ -30,7 +30,8 @@
   border-radius: 8px;
   background-color: #ffffff;
   animation: fadeIn 0.5s ease-in-out;
-  overflow: auto;
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: calc(100vh - 100px); /* Adjust as needed for your layout */
 }
 
 .header {
@@ -103,6 +104,7 @@
 
 .list-container {
   margin-top: 20px;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .list-container h2 {
@@ -159,3 +161,37 @@
   background-color: #e53935;
 }
 
+/* Optional: Customize scrollbar appearance for Webkit browsers */
+.disease-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.disease-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.disease-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+.disease-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.list-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.list-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+.list-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
