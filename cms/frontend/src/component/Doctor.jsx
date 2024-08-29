@@ -70,11 +70,14 @@ const Doctor = () => {
   };
 
   const deleteDoctor = async (doctorID) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/doctors/${doctorID}`);
-      fetchDoctors();
-    } catch (error) {
-      console.error('Error deleting doctor:', error);
+    const isConfirmed = window.confirm('Are you sure you want to delete this doctor?');
+    if (isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5000/api/doctors/${doctorID}`);
+        fetchDoctors();
+      } catch (error) {
+        console.error('Error deleting doctor:', error);
+      }
     }
   };
 

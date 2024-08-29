@@ -80,11 +80,14 @@ const Disease = () => {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/diseases/${id}`);
-      setDiseases(diseases.filter((disease) => disease.DiseaseID !== id));
-    } catch (error) {
-      console.error('Error deleting disease:', error);
+    const isConfirmed = window.confirm('Are you sure you want to delete this disease?');
+    if (isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5000/api/diseases/${id}`);
+        setDiseases(diseases.filter((disease) => disease.DiseaseID !== id));
+      } catch (error) {
+        console.error('Error deleting disease:', error);
+      }
     }
   };
 
