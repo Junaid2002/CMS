@@ -3,7 +3,6 @@ import axios from 'axios';
 import './Patient.css';
 import { useNavigate } from 'react-router-dom';
 
-
 const Patient = () => {
   const [patients, setPatients] = useState([]);
   const [formState, setFormState] = useState({
@@ -21,17 +20,16 @@ const Patient = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
- 
-  const fetchPatients = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/patients');
-      setPatients(response.data);
-    } catch (error) {
-      console.error('Error fetching patients:', error);
-    }
-  };
+    const fetchPatients = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/patients');
+        setPatients(response.data);
+      } catch (error) {
+        console.error('Error fetching patients:', error);
+      }
+    };
     fetchPatients();
-},[]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,17 +38,17 @@ const Patient = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {PatientID} = formState;
+    const { patientID } = formState;
 
     try {
       if (editingPatientID) {
         await axios.put(`http://localhost:5000/api/patients/${editingPatientID}`, formState);
         setPatients(
           patients.map((patient) =>
-            patient.PatientID ===editingPatientID ? { ...formState, PatientID: editingPatientID} : patient
-        )
-      );
-      setEditingPatientID(null);
+            patient.patientID === editingPatientID ? { ...formState, patientID: editingPatientID } : patient
+          )
+        );
+        setEditingPatientID(null);
       } else {
         const response = await axios.post('http://localhost:5000/api/patients', formState);
         setPatients([...patients, response.data]);
@@ -78,11 +76,14 @@ const Patient = () => {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/patients/${id}`);
-      setPatients(patients.filter((patient) => patient.PatientID  !== id));
-    } catch (error) {
-      console.error('Error deleting patient:', error);
+    const isConfirmed = window.confirm('Are you sure you want to delete this patient?');
+    if (isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5000/api/patients/${id}`);
+        setPatients(patients.filter((patient) => patient._id !== id));
+      } catch (error) {
+        console.error('Error deleting patient:', error);
+      }
     }
   };
 

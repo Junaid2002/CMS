@@ -64,12 +64,15 @@ const Billing = () => {
   };
 
   const handleDelete = async (index) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/billings/${bills[index].BillID}`);
-      const updatedBills = bills.filter((_, i) => i !== index);
-      setBills(updatedBills);
-    } catch (error) {
-      console.error('Error deleting bill:', error);
+    const isConfirmed = window.confirm('Are you sure you want to delete this bill?');
+    if (isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5000/api/billings/${bills[index].BillID}`);
+        const updatedBills = bills.filter((_, i) => i !== index);
+        setBills(updatedBills);
+      } catch (error) {
+        console.error('Error deleting bill:', error);
+      }
     }
   };
 

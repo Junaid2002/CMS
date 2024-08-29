@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import './Dashboard.css';
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
@@ -39,6 +40,21 @@ const Dashboard = () => {
     { id: 3, date: '2024-08-22', patient: 'Junaid', amount: '$2000' },
     { id: 4, date: '2024-08-22', patient: 'ayush', amount: '$3000' },
     { id: 5, date: '2024-08-22', patient: 'Sahil', amount: '$5000' },
+    { id: 6, date: '2024-08-29', patient: 'triptendu', amount: '$1000' },
+    { id: 7, date: '2024-08-29', patient: 'umar', amount: '$1900' },
+    { id: 8, date: '2024-08-29', patient: 'Ebadur', amount: '$1500' },
+    { id: 9, date: '2024-08-29', patient: 'Anand', amount: '$700' },
+    { id: 10, date: '2024-08-29', patient: 'james', amount: '$1200' },
+    { id: 11, date: '2024-08-29', patient: 'Oliver', amount: '$1000' },
+    { id: 12, date: '2024-08-29', patient: 'Liam', amount: '$500' },
+    { id: 13, date: '2024-08-29', patient: 'Henry', amount: '$600' },
+    { id: 14, date: '2024-08-29', patient: 'Jack', amount: '$300' },
+    { id: 15, date: '2024-08-29', patient: 'Levi', amount: '$900' },
+    { id: 16, date: '2024-08-29', patient: 'Lucas', amount: '$12000' },
+    { id: 17, date: '2024-08-29', patient: 'Shivangi', amount: '$1300' },
+    { id: 18, date: '2024-08-29', patient: 'Shreya', amount: '$500' },
+    { id: 19, date: '2024-08-29', patient: 'Akansha', amount: '$700' },
+    { id: 20, date: '2024-08-29', patient: 'Itachi', amount: '$800' },
   ];
 
   return (
@@ -66,9 +82,9 @@ const Dashboard = () => {
 
           <Grid templateColumns="repeat(3, 1fr)" gap={6} mb={6}>
             {[
-              { label: 'Total Patients', value: '5', bgColor: 'blue.50', hoverColor: 'blue.100' },
-              { label: 'Appointments', value: '5', bgColor: 'green.50', hoverColor: 'green.100' },
-              { label: 'Revenue', value: '$11900', bgColor: 'yellow.50', hoverColor: 'yellow.100' },
+              { label: 'Total Patients', value: '20', bgColor: 'blue.50', hoverColor: 'blue.100' },
+              { label: 'Appointments', value: '20', bgColor: 'green.50', hoverColor: 'green.100' },
+              { label: 'Revenue', value: '$26000', bgColor: 'yellow.50', hoverColor: 'yellow.100' },
             ].map((item, index) => (
               <GridItem
                 key={index}
@@ -96,7 +112,7 @@ const Dashboard = () => {
           </Flex>
 
           <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-            <Box bg="white" p={6} borderRadius="md" boxShadow="lg" height="auto">
+            <Box bg="white" p={6} borderRadius="md" boxShadow="lg" height="auto" maxHeight="400px" overflowY="scroll">
               <Text fontSize="xl" mb={4} color="teal.600" fontWeight="bold">Recent Transactions</Text>
               <Table variant="simple">
                 <Thead>
