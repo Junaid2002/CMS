@@ -58,6 +58,11 @@ const Billing = () => {
     }
   };
 
+  const handleCancel = () => {
+    setNewBill({ BillID: '', PatientID: '', Date: '', BillAmount: '', PaymentStatus: '', AreaOfService: '' });
+    setEditIndex(-1);
+  };
+
   const handleEdit = (index) => {
     setNewBill(bills[index]);
     setEditIndex(index);
@@ -164,6 +169,15 @@ const Billing = () => {
         >
           {editIndex === -1 ? 'Add Bill' : 'Update Bill'}
         </button>
+        {editIndex !== -1 && (
+          <button
+            type="button"
+            className="cancel-button"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+        )}
       </form>
 
       <table className="billing-table">
